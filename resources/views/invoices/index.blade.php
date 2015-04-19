@@ -19,9 +19,9 @@
                         <th class="hidden-xs">Invoice ID</th>
                         <th class="hidden-xs">Client Name</th>
                         <th class="hidden-xs">Due Date</th>
-                        <th class="hidden-xs">Status</th>
-                        <th></th>
-                        <th></th>
+                        <th class="hidden-xs" style="width:133px;">Status</th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,7 +32,13 @@
                         <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->id }}</a></td>
                         <td>{{ $invoice->client->fullnameAndCompany }}</td>
                         <td>{{ $invoice->date_due->format('D d M, Y') }}</td>
-                        <td>{{ $invoice->status }}</td>
+                        <td>@if($invoice->status)
+                                <span class="label label-success">COMPLETED</span>
+                            @else
+                                <span class="label label-warning">PENDING</span>
+                            @endif
+                            <a href="{{ URL::to('invoices-update-status/'.$invoice->id)  }}"><i class="ti-reload"></i></a>
+                        </td>
 
                         <td class="center">
                             <div class="visible-md visible-lg hidden-sm hidden-xs">

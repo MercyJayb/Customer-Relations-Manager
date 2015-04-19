@@ -88,7 +88,7 @@ class InvoiceController extends Controller {
 
         $invoice->save();
 
-        return redirect('invoices')->with('success','Invoice Status Updated Successfully');
+        return redirect()->back()->with('success','Invoice Status Updated Successfully');
     }
 
     public function getClientServices(InvoiceRequest $request)
@@ -133,10 +133,6 @@ class InvoiceController extends Controller {
 	 */
 	public function store(InvoiceRequest $request)
 	{
-        //dd($request->all());
-
-        //protected $fillable = ['client_id','date_due','comments','frequency','total','status'];
-
         $invoice = new Invoice();
 
         $request = $request->all();
@@ -145,21 +141,19 @@ class InvoiceController extends Controller {
 
         $invoice->create($request);
 
-        $inv = \DB::getPdo()->lastInsertId();
+        $invoice_id = \DB::getPdo()->lastInsertId();
 
         foreach($request['client_service_id'] as $key => $charge){
 
-            $data = [
+            Invoice_Item::create([
                 'client_id' => $request['client_id'],
-                'invoice_id' => $inv,
+                'invoice_id' => $invoice_id,
                 'client_service_id' => $key,
                 'charge' => $charge
-            ];
-
-            Invoice_Item::create($data);
+            ]);
         }
 
-        return redirect('invoices')->with('success','Invoice Created Successfully');
+        return redirect('invoices-all')->with('success','Invoice Created Successfully');
 	}
 
 	/**
@@ -172,7 +166,7 @@ class InvoiceController extends Controller {
 	{
         $title = 'Invoice Profile';
 
-        $subtitle = "display an Invoice record";
+        $subtitle = "display an invoice record";
 
         return view('invoices.show', compact('invoice', 'title','subtitle'));
 	}
@@ -189,7 +183,9 @@ class InvoiceController extends Controller {
 
         $subtitle = "update a domain record";
 
-        return view('invoices.update', compact('invoice', 'title','subtitle'));
+        $frequency = [0=>'Just Once', 1=>'Monthly', 3=>'After 3 Months', 6=>'After 6 Months', 12=>'Yearly'];
+
+        return view('invoices.update', compact('invoice', 'title','subtitle', 'frequency'));
 	}
 
 	/**
@@ -200,9 +196,19 @@ class InvoiceController extends Controller {
 	 */
 	public function update(Invoice $invoice, InvoiceRequest $request)
 	{
-       $invoice->update($request->all());
+        $request = $request->all();
 
-        return redirect('invoices')->with('success','Invoice Updated Successfully');
+        $request['total'] = array_sum($request['client_service_id']);
+
+        $invoice->update($request);
+
+        foreach($request['client_service_id'] as $key => $charge){
+
+            Invoice_Item::where('client_service_id', $key)->update(['charge'=>$charge]);
+
+        }
+
+        return redirect('invoices-all')->with('success','Invoice Updated Successfully');
 	}
 
 	/**
@@ -213,7 +219,7 @@ class InvoiceController extends Controller {
 	 */
 	public function destroy(Invoice $invoice)
     {
-        $invoice->invoiceItems->delete();
+        Invoice_Item::where('invoice_id', $invoice->id)->delete();
 
         $invoice->delete();
 

@@ -11,7 +11,6 @@
 			@endif
 		</p>
 
-
         <div class="row">
             <div class="col-sm-8">
                 <div class="panel panel-white">
@@ -40,6 +39,7 @@
 
                         <p><a href="{{ url('addservice/'.$client->id) }}"><i class="ti-pencil-alt"></i> Add Service</a></p>
                         <p><a href="{{ url('clients/'.$client->id.'/edit') }}"> <i class="ti-pencil-alt"></i> Update Client</a></p>
+                        <p><a href="#inv"> <i class="ti-pencil-alt"></i> View Invoices</a></p>
 
                     </div>
                 </div>
@@ -49,59 +49,14 @@
 
 
 
-        <div class="panel panel-white">
-
-            <div class="panel-body">
-
-
-
-                <table data-order='[[ 0, "desc" ]]' data-page-length='10' class="table table-striped table-bordered table-hover" id="example" >
-                    <thead>
-                    <tr>
-                        <th class="center">#</th>
-                        <th>Project Title</th>
-                        <th class="hidden-xs">Description</th>
-                        <th class="hidden-xs">Start Date</th>
-                        <th class="hidden-xs">End Date</th>
-                        <th class="hidden-xs">Created On</th>
-                        <th class="hidden-xs">Last Updated On</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-
-                    @if(count($client->project))
-                        @foreach($client->project as $p)
-                            <tr>
-                                <td class="center">{{ $p->id }}</td>
-                                <td>{{ $p->title }}</td>
-                                <td>{{ $p->description }}</td>
-                                <td>{{ Carbon\Carbon::parse($client->start_at)->format('D d M, Y') }}</td>
-                                <td>{{ Carbon\Carbon::parse($client->end_at)->format('D d M, Y') }}</td>
-                                <td>{{ Carbon\Carbon::parse($client->created_at)->format('D d M, Y') }}</td>
-                                <td>{{ Carbon\Carbon::parse($client->updated_at)->format('D d M, Y') }}</td>
-                                <td class="center">
-                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                        <a href="{{ URL::to('projects/'.$p->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Update</a>
-                                    </div>
-                                </td>
-
-                            </tr>
-                        @endforeach
-                    @endif
-
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
         <div class="panel panel-white">
 
             <div class="panel-body">
 
-
+                <div class="panel-heading">
+                    <h4 class="panel-title">Services</h4>
+                </div>
 
                 <table data-order='[[ 0, "desc" ]]' data-page-length='10' class="table table-striped table-bordered table-hover" id="example" >
                     <thead>
@@ -134,6 +89,102 @@
                                     {!! Form::hidden('_method', 'DELETE') !!}
                                     {!!Form::close()!!}
                                 </td>
+                            </tr>
+                        @endforeach
+                    @endif
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel panel-white">
+
+            <div class="panel-body">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Projects</h4>
+                </div>
+
+
+                <table data-order='[[ 0, "desc" ]]' data-page-length='10' class="table table-striped table-bordered table-hover" id="example" >
+                    <thead>
+                    <tr>
+                        <th class="center">#</th>
+                        <th>Project Title</th>
+                        <th class="hidden-xs">Description</th>
+                        <th class="hidden-xs">Start Date</th>
+                        <th class="hidden-xs">End Date</th>
+                        <th class="hidden-xs">Created On</th>
+                        <th class="hidden-xs">Last Updated On</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+
+                    @if(count($client->project))
+                        @foreach($client->project as $p)
+                            <tr>
+                                <td class="center">{{ $p->id }}</td>
+                                <td>{{ $p->title }}</td>
+                                <td>{{ $p->description }}</td>
+                                <td>{{ Carbon\Carbon::parse($p->start_at)->format('D d M, Y') }}</td>
+                                <td>{{ Carbon\Carbon::parse($p->end_at)->format('D d M, Y') }}</td>
+                                <td>{{ Carbon\Carbon::parse($p->created_at)->format('D d M, Y') }}</td>
+                                <td>{{ Carbon\Carbon::parse($p->updated_at)->format('D d M, Y') }}</td>
+                                <td class="center">
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="{{ URL::to('projects/'.$p->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Update</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        @endforeach
+                    @endif
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="panel panel-white">
+
+            <div class="panel-body">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Invoices</h4>
+                </div>
+
+                <table data-order='[[ 0, "desc" ]]' data-page-length='10' class="table table-striped table-bordered table-hover" id="example" >
+                    <thead>
+                    <tr>
+                        <th class="center">#</th>
+                        <th>Amount</th>
+                        <th>Frequency</th>
+                        <th class="hidden-xs">Date Due</th>
+                        <th class="hidden-xs">Created On</th>
+                        <th class="hidden-xs">Last Updated On</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <a name="inv"></a>
+                    @if(count($client->invoice))
+                        @foreach($client->invoice as $i)
+                            <tr>
+                                <td class="center">{{ $i->id }}</td>
+                                <td>{{ $i->total }}</td>
+                                <td>{{ $i->frequency }}</td>
+                                <td>{{ Carbon\Carbon::parse($i->date_due)->format('D d M, Y') }}</td>
+                                <td>{{ Carbon\Carbon::parse($i->created_at)->format('D d M, Y') }}</td>
+                                <td>{{ Carbon\Carbon::parse($i->updated_at)->format('D d M, Y') }}</td>
+                                <td class="center">
+                                    <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                        <a href="{{ URL::to('invoices/'.$i->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Update</a>
+                                    </div>
+                                </td>
+
                             </tr>
                         @endforeach
                     @endif

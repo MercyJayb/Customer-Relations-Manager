@@ -53,6 +53,14 @@ class Client extends Model {
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    public function invoice()
+    {
+        return $this->hasMany('CRM\Invoice');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function domain()
 	{
 		return $this->hasMany('CRM\Domain');

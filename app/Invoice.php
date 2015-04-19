@@ -126,12 +126,20 @@ class Invoice extends Model {
      */
     public function client()
 	{
-		return $this->belongsTo('CRM\Client');
+		return $this->belongsTo('CRM\Client', 'client_id');
 	}
 
     public function invoice_items()
     {
-        return $this->hasMany('CRM\Invoice_Item');
+        return $this->hasMany('CRM\Invoice_Item', 'invoice_id');
+    }
+
+    public static function frequency($months)
+    {
+        $frequency = [0=>'Just Once', 1=>'Monthly', 3=>'After 3 Months', 6=>'After 6 Months', 12=>'Yearly'];
+
+        return $frequency[$months];
+
     }
 
 }

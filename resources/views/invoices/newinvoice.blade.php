@@ -42,7 +42,7 @@
 
                 <div class="form-group {!! ($errors->has('client_service_id[]')) ? "has-error" : ""  !!}">
                 {!!Form::label("client_service_id[{$service->id}]","Charges for {$service->service->name} :") !!}
-                {!!Form::text("client_service_id[{$service->id}]", null, array("class"=>"form-control", "id"=>"service", 'id'=>'service'.$service->id, 'placeholder'=>'') ) !!}
+                {!!Form::text("client_service_id[{$service->id}]", $service->cost, array("class"=>"form-control", "id"=>"service", 'readonly'=>'readonly', 'id'=>'service'.$service->id, 'placeholder'=>'') ) !!}
                 </div>
 
             @endforeach
