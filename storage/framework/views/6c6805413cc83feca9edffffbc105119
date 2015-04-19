@@ -1,0 +1,129 @@
+
+
+
+<?php $__env->startSection('content'); ?>
+
+		<p class="text-small margin-bottom-20">
+			<?php if(Session::has('success')): ?>
+			<div class="alert alert-success">
+				<?php echo e(Session::get('success')); ?>
+
+			</div>
+			<?php endif; ?>
+		</p>
+
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="panel panel-white">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Task Details</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p><b>Task Name:</b> <?php echo e($task->title); ?></p>
+                        <p>Status:
+                            <?php if($task->status == TRUE): ?>
+                                <span class="label label-success">COMPLETED</span>
+                            <?php else: ?>
+                                <span class="label label-warning">PENDING</span>
+                            <?php endif; ?>
+                            <a href="<?php echo e(URL::to('tasks-update-status/'.$task->id)); ?>"><i class="ti-reload"></i></a>
+                        </p>
+                        <p>Due Date: <?php echo e($task->start_at); ?></p>
+                        <p>Created On: <?php echo e($task->created_at); ?></p>
+                        <p>Last Updated On: <?php echo e($task->updated_at); ?></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 pull-right">
+                <div class="panel panel-white">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Action Table</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <p><a href="<?php echo e(url('tasks/'.$task->id.'/edit')); ?>"> <i class="ti-pencil-alt"></i> Update Task</a></p>
+                        <p><a href="#note"><i class="ti-pencil-alt"></i> Add Notes</a></p>
+                        <p><a href="#logs"><i class="ti-notepad"></i> View Logs</a></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Description</h3>
+                    </div>
+                    <div class="panel-body">
+
+                         <?php echo e($task->description); ?></p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Notes</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ol>
+                            <?php foreach($task->comments as $t): ?>
+                                <li><?php echo e($t->content); ?> ~ <i><small><?php echo e($t->created_at->diffForHumans()); ?></small></i> </li>
+                            <?php endforeach; ?>
+                        </ol>
+
+                        <a name="note"></a>
+
+                        <?php echo Form::model($task, ['action'=>'TaskController@addComment', 'method'=>'POST']); ?>
+
+
+                            <div class="form-group <?php echo ($errors->has('content')) ? "has-error" : ""; ?>">
+                        	    <?php echo Form::label('content','Add Note:'); ?>
+
+                        	    <?php echo Form::textarea('content', Input::old('content'), array("class"=>"form-control", 'placeholder'=>'Notes') ); ?>
+
+                        	    <?php echo Form::hidden('task_id', $task->id); ?>
+
+                            </div>
+
+                        <?php echo Form::submit('Add Note', ['class'=> 'btn btn-primary']); ?>
+
+
+                        <?php echo Form::close(); ?>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Logs</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <a name="logs"></a>
+
+                        logs will be displayed here ~ <i><small><?php echo e(Carbon\Carbon::now()->subHours(5)->diffForHumans()); ?></small></i>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

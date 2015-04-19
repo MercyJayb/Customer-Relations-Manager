@@ -1,0 +1,10 @@
+
+
+<?php $__env->startSection('content'); ?>
+<p class="text-small margin-bottom-20">
+	<h4>Oops, something went wrong.</h4>
+	<h6>Click <a href="<?php echo e(URL::to('/')); ?>">here</a> to go back to the Dashboard</h6>
+</p>
+	
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

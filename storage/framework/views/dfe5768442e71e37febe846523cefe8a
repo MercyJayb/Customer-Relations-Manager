@@ -1,0 +1,45 @@
+
+
+
+<?php $__env->startSection('content'); ?>
+
+    <p class="text-small margin-bottom-20">
+        <?php if(Session::has('success')): ?>
+    <div class="alert alert-success">
+        <?php echo e(Session::get('success')); ?>
+
+    </div>
+    <?php endif; ?>
+    </p>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Service Details</h3>
+                </div>
+                <div class="panel-body">
+                    <p><b>Service Name:</b> <?php echo e($service->name); ?></p>
+
+                    <p>Created On: <?php echo e($service->created_at); ?></p>
+                    <p>Last Updated On: <?php echo e($service->updated_at); ?></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 pull-right">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Action Table</h3>
+                </div>
+                <div class="panel-body">
+
+                    <p><a href="<?php echo e(url('services/'.$service->id.'/edit')); ?>"> <i class="ti-pencil-alt"></i> Update Service</a></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

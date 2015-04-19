@@ -1,0 +1,79 @@
+
+
+<?php $__env->startSection('formcss'); ?>
+	<link href="<?php echo e(URL::asset('vendor/bootstrap-datepicker/bootstrap-datepicker3.standalone.min.css')); ?>" rel="stylesheet" media="screen">
+	<link href="<?php echo e(URL::asset('vendor/bootstrap-timepicker/bootstrap-timepicker.min.css')); ?>" rel="stylesheet" media="screen">
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+
+<div class="panel panel-white">
+
+	<div class="panel-body">
+		<p class="text-small margin-bottom-20">
+		<?php if($errors->has()): ?>
+		<div class="alert alert-danger">
+			<ul>
+				<?php foreach($errors->all() as $error): ?>
+					<li><?php echo e($error); ?></li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+		<?php endif; ?>
+	</p>
+
+		<?php echo Form::open(array('url'=> 'newinvoice', 'method'=> 'POST', 'role'=>'form')); ?>
+
+
+			<?php echo $__env->make('invoices._form', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+			
+		<?php echo Form::close(); ?>
+
+	</div>
+</div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('formjs'); ?>
+
+    <?php /*<script>*/ ?>
+        <?php /*$('#client').change(function(){*/ ?>
+
+            <?php /*var client = $(this).val();*/ ?>
+            <?php /*var host = "<?php echo e(URL::to('/')); ?>";*/ ?>
+            <?php /*var url = host + '/newinvoice/' + client;*/ ?>
+            <?php /*$.ajax({*/ ?>
+                <?php /*url: url,*/ ?>
+                <?php /*type: 'GET',*/ ?>
+                <?php /*beforeSend: function(){*/ ?>
+                     <?php /*$('.client_services').html('Loading...');*/ ?>
+                <?php /*},*/ ?>
+                <?php /*success: function(data){*/ ?>
+                    <?php /*$.each(data.id, function (i) {*/ ?>
+                        <?php /*$('.client_services').html('<input type="text" name="service"+i value=+client+ class="form-control">');*/ ?>
+                    <?php /*});*/ ?>
+
+                <?php /*}*/ ?>
+            <?php /*});*/ ?>
+
+            <?php /*return false;*/ ?>
+
+        <?php /*});*/ ?>
+    <?php /*</script>*/ ?>
+
+    <?php /*<div class="form-group <?php echo ($errors->has('client_service_id[]')) ? "has-error" : ""; ?>">*/ ?>
+    <?php /*<?php echo Form::label('client_service_id','Amount for Service Name:'); ?>*/ ?>
+    <?php /*<?php echo Form::text('client_service_id[]', Input::old('client_service_id'), array("class"=>"form-control", "id"=>"service", 'placeholder'=>'Amount') ); ?>*/ ?>
+    <?php /*</div>*/ ?>
+
+	<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+	<?php echo HTML::script('vendor/bootstrap-datepicker/bootstrap-datepicker.min.js'); ?>
+
+	<?php echo HTML::script('vendor/bootstrap-timepicker/bootstrap-timepicker.min.js'); ?>
+
+	<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+<?php $__env->stopSection(); ?>
+
+
+
+
+<?php echo $__env->make('template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

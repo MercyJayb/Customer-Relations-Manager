@@ -1,0 +1,12 @@
+
+<div class="form-group <?php echo ($errors->has('client_id')) ? "has-error" : ""; ?>">
+	<?php echo Form::label('client_id','Client Name:'); ?>
+
+	<?php echo Form::select('client_id', [''=>'Please Select'] + $clients, null, array("class"=>"form-control", "id"=>"client") ); ?>
+
+</div>
+
+
+<?php echo Form::submit('Generate New Invoice', array('class'=>'btn btn-primary')); ?>
+
+

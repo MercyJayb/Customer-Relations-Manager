@@ -1,0 +1,17 @@
+
+
+<?php $__env->startSection('content'); ?>
+
+    <p class="text-small margin-bottom-20">
+
+        <div class="alert alert-warning">You do not have permission to view this page.</div>
+
+    </p>
+
+<?php $__env->stopSection(); ?>
+
+
+
+
+
+<?php echo $__env->make('template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

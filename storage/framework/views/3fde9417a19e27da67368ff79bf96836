@@ -1,0 +1,71 @@
+
+
+
+<?php $__env->startSection('content'); ?>
+
+		<p class="text-small margin-bottom-20">
+			<?php if(Session::has('success')): ?>
+			<div class="alert alert-success">
+				<?php echo e(Session::get('success')); ?>
+
+			</div>
+			<?php endif; ?>
+		</p>
+
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="panel panel-white">
+                    <div class="panel-body">
+                        <p><b>Invoice ID:</b> <?php echo e($invoice->id); ?></p>
+                        <p><b>Client Name:</b> <?php echo e($invoice->client->fullnameAndCompany); ?></p>
+                        <p><b>Amount:</b> <?php echo e($invoice->total); ?></p>
+                        <p><b>Frequency:</b> <?php echo e($invoice->frequency); ?></p>
+                        <p>Status:
+                            <?php if($invoice->status): ?>
+                                <span class="label label-success">COMPLETED</span>
+                            <?php else: ?>
+                                <span class="label label-warning">PENDING</span>
+                            <?php endif; ?>
+                            <a href="<?php echo e(URL::to('invoices-update-status/'.$invoice->id)); ?>"><i class="ti-reload"></i></a>
+                        </p>
+                        <p>Created On: <?php echo e(Carbon\Carbon::parse($invoice->created_at)->format('D d M, Y')); ?></p>
+                        <p>Due Date: <?php echo e(Carbon\Carbon::parse($invoice->date_due)->format('D d M, Y')); ?></p>
+                        <p>Last Updated On: <?php echo e(Carbon\Carbon::parse($invoice->updated_at)->format('D d M, Y')); ?></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 pull-right">
+                <div class="panel panel-white">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Action Table</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p><a href=""><i class="ti-notepad"></i> Download </a></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-white">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Description</h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <p><?php echo e($invoice->comments); ?></p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

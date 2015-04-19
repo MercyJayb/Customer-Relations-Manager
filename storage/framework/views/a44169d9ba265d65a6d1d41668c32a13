@@ -1,0 +1,55 @@
+
+
+
+<?php $__env->startSection('content'); ?>
+
+    <p class="text-small margin-bottom-20">
+        <?php if(Session::has('success')): ?>
+    <div class="alert alert-success">
+        <?php echo e(Session::get('success')); ?>
+
+    </div>
+    <?php endif; ?>
+    </p>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Project Details</h3>
+                </div>
+                <div class="panel-body">
+                    <p><b>Tender Name:</b> <?php echo e($tender->title); ?></p>
+                    <p><b>Client Name:</b> <?php echo e($tender->client->fullnameAndCompany); ?></p>
+                    <p>Status:
+                        <?php if($tender->status == TRUE): ?>
+                            <span class="label label-success">COMPLETED</span>
+                        <?php else: ?>
+                            <span class="label label-warning">PENDING</span>
+                        <?php endif; ?>
+                        <a href="<?php echo e(URL::to('tenders-update-status/'.$tender->id)); ?>"><i class="ti-reload"></i></a>
+                    </p>
+                    <p>Due Date: <?php echo e($tender->start_date->format('Y-m-d')); ?></p>
+
+                    <p>Created On: <?php echo e($tender->created_at); ?></p>
+                    <p>Last Updated On: <?php echo e($tender->updated_at); ?></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4 pull-right">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Action Table</h3>
+                </div>
+                <div class="panel-body">
+
+                    <p><a href="<?php echo e(url('tenders/'.$tender->id.'/edit')); ?>"> <i class="ti-pencil-alt"></i> Update Tender</a></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

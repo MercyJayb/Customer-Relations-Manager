@@ -1,0 +1,502 @@
+
+
+
+<?php $__env->startSection('content'); ?>
+
+    <p class="text-small margin-bottom-20">
+        <?php if(Session::has('success')): ?>
+    <div class="alert alert-success"><?php echo e(Session::get('success')); ?></div>
+    <?php elseif(Session::has('error')): ?>
+        <div class="alert alert-danger"><?php echo e(Session::get('error')); ?></div>
+        <?php endif; ?>
+        </p>
+
+        <?php /*Start Overdue Tasks*/ ?>
+        <h4>Overdue Tasks</h4>
+        <div class="panel panel-white">
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="example">
+                    <thead>
+                    <tr>
+                        <th style="width:1px;">#</th>
+                        <th class="hidden-xs">Title</th>
+                        <th style="width:217px;">Starting Date</th>
+                        <th style="width:113px;"></th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php $a = 1; ?>
+                    <?php foreach($overduetasks as $task): ?>
+                        <tr>
+                            <td class="center"><?php echo e($a++); ?></td>
+                            <td class="hidden-xs"><a href="<?php echo e(URL::to('tasks/'.$task->id)); ?>"><?php echo e($task->title); ?></a></td>
+                            <td><?php echo e($task->start_at->format('h:ia D d M, Y')); ?></td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                    <?php if($task->status == TRUE): ?>
+                                        <span class="label label-success">COMPLETED</span>
+                                    <?php else: ?>
+                                        <span class="label label-warning">PENDING</span>
+                                    <?php endif; ?>
+                                    <a href="<?php echo e(URL::to('tasks-update-status/'.$task->id)); ?>"><i class="ti-reload"></i></a>
+
+                                </div>
+                            </td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="<?php echo e(URL::to('tasks/'.$task->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                <?php echo Form::model($task ,array('style'=>'margin: 0px;', 'action'=> array('TaskController@destroy',$task->id))); ?>
+
+                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
+                                <?php echo Form::hidden('_method', 'DELETE'); ?>
+
+                                <?php echo Form::close(); ?>
+
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    <?php /*End OverDue Tasks*/ ?>
+        <?php /*Start Today Tasks*/ ?>
+        <h4>Today's Tasks</h4>
+        <div class="panel panel-white">
+
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="example">
+                    <thead>
+                    <tr>
+                        <th style="width:1px;">#</th>
+                        <th class="hidden-xs">Title</th>
+                        <th style="width:217px;">Starting Date</th>
+                        <th style="width:113px;"></th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php $b = 1; ?>
+                    <?php foreach($todaytasks as $task): ?>
+                        <tr>
+                            <td class="center"><?php echo e($b++); ?></td>
+                            <td class="hidden-xs"><a href="<?php echo e(URL::to('tasks/'.$task->id)); ?>"><?php echo e($task->title); ?></a></td>
+                            <td><?php echo e($task->start_at->format('h:ia D d M, Y')); ?></td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                    <?php if($task->status == TRUE): ?>
+                                        <span class="label label-success">COMPLETED</span>
+                                    <?php else: ?>
+                                        <span class="label label-warning">PENDING</span>
+                                    <?php endif; ?>
+                                    <a href="<?php echo e(URL::to('tasks-update-status/'.$task->id)); ?>"><i class="ti-reload"></i></a>
+
+
+                                </div>
+                            </td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="<?php echo e(URL::to('tasks/'.$task->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                <?php echo Form::model($task ,array('style'=>'margin: 0px;', 'action'=> array('TaskController@destroy',$task->id))); ?>
+
+                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
+                                <?php echo Form::hidden('_method', 'DELETE'); ?>
+
+                                <?php echo Form::close(); ?>
+
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <?php /*End Today Tasks*/ ?>
+        <?php /*Start Tomorrow Tasks*/ ?>
+        <h4>Tomorrow's Tasks</h4>
+        <div class="panel panel-white">
+
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="example">
+                    <thead>
+                    <tr>
+                        <th style="width:1px;">#</th>
+                        <th class="hidden-xs">Title</th>
+                        <th style="width:217px;">Starting Date</th>
+                        <th style="width:113px;"></th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php $c = 1; ?>
+                    <?php foreach($tomorrowtasks as $task): ?>
+                        <tr>
+                            <td class="center"><?php echo e($c++); ?></td>
+                            <td class="hidden-xs"><a href="<?php echo e(URL::to('tasks/'.$task->id)); ?>"><?php echo e($task->title); ?></a></td>
+                            <td><?php echo e($task->start_at->format('h:ia D d M, Y')); ?></td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                    <?php if($task->status == TRUE): ?>
+                                        <span class="label label-success">COMPLETED</span>
+                                    <?php else: ?>
+                                        <span class="label label-warning">PENDING</span>
+                                    <?php endif; ?>
+                                    <a href="<?php echo e(URL::to('tasks-update-status/'.$task->id)); ?>"><i class="ti-reload"></i></a>
+
+                                </div>
+                            </td>
+
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="<?php echo e(URL::to('tasks/'.$task->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                <?php echo Form::model($task ,array('style'=>'margin: 0px;', 'action'=> array('TaskController@destroy',$task->id))); ?>
+
+                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
+                                <?php echo Form::hidden('_method', 'DELETE'); ?>
+
+                                <?php echo Form::close(); ?>
+
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <?php /*End Tomorrow Tasks*/ ?>
+        <?php /*Start This Week Tasks*/ ?>
+        <h4>This Week's Tasks</h4>
+        <div class="panel panel-white">
+
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="example">
+                    <thead>
+                    <tr>
+                        <th style="width:1px;">#</th>
+                        <th class="hidden-xs">Title</th>
+                        <th style="width:217px;">Starting Date</th>
+                        <th style="width:113px;"></th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php $d = 1; ?>
+                    <?php foreach($thisweektasks as $task): ?>
+                        <tr>
+                            <td class="center"><?php echo e($d++); ?></td>
+                            <td class="hidden-xs"><a href="<?php echo e(URL::to('tasks/'.$task->id)); ?>"><?php echo e($task->title); ?></a></td>
+                            <td><?php echo e($task->start_at->format('h:ia D d M, Y')); ?></td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                    <?php if($task->status == TRUE): ?>
+                                        <span class="label label-success">COMPLETED</span>
+                                    <?php else: ?>
+                                        <span class="label label-warning">PENDING</span>
+                                    <?php endif; ?>
+                                    <a href="<?php echo e(URL::to('tasks-update-status/'.$task->id)); ?>"><i class="ti-reload"></i></a>
+
+                                </div>
+                            </td>
+
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="<?php echo e(URL::to('tasks/'.$task->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                <?php echo Form::model($task ,array('style'=>'margin: 0px;', 'action'=> array('TaskController@destroy',$task->id))); ?>
+
+                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
+                                <?php echo Form::hidden('_method', 'DELETE'); ?>
+
+                                <?php echo Form::close(); ?>
+
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <?php /*End This Week Tasks*/ ?>
+        <?php /*Start Next Week Tasks*/ ?>
+        <h4>Next Week's Tasks</h4>
+        <div class="panel panel-white">
+
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="example">
+                    <thead>
+                    <tr>
+                        <th style="width:1px;">#</th>
+                        <th class="hidden-xs">Title</th>
+                        <th style="width:217px;">Starting Date</th>
+                        <th style="width:113px;"></th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php $e = 1; ?>
+                    <?php foreach($nextweektasks as $task): ?>
+                        <tr>
+                            <td class="center"><?php echo e($e++); ?></td>
+                            <td class="hidden-xs"><a href="<?php echo e(URL::to('tasks/'.$task->id)); ?>"><?php echo e($task->title); ?></a></td>
+                            <td><?php echo e($task->start_at->format('h:ia D d M, Y')); ?></td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                    <?php if($task->status == TRUE): ?>
+                                        <span class="label label-success">COMPLETED</span>
+                                    <?php else: ?>
+                                        <span class="label label-warning">PENDING</span>
+                                    <?php endif; ?>
+                                    <a href="<?php echo e(URL::to('tasks-update-status/'.$task->id)); ?>"><i class="ti-reload"></i></a>
+
+                                </div>
+                            </td>
+
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="<?php echo e(URL::to('tasks/'.$task->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                <?php echo Form::model($task ,array('style'=>'margin: 0px;', 'action'=> array('TaskController@destroy',$task->id))); ?>
+
+                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
+                                <?php echo Form::hidden('_method', 'DELETE'); ?>
+
+                                <?php echo Form::close(); ?>
+
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <?php /*End Next Week Tasks*/ ?>
+
+        <?php /*Start This Month Tasks*/ ?>
+        <h4>This Month's Tasks</h4>
+        <div class="panel panel-white">
+
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="example">
+                    <thead>
+                    <tr>
+                        <th style="width:1px;">#</th>
+                        <th class="hidden-xs">Title</th>
+                        <th style="width:217px;">Starting Date</th>
+                        <th style="width:113px;"></th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php $h = 1; ?>
+                    <?php foreach($thismonthtasks as $task): ?>
+                        <tr>
+                            <td class="center"><?php echo e($h++); ?></td>
+                            <td class="hidden-xs"><a href="<?php echo e(URL::to('tasks/'.$task->id)); ?>"><?php echo e($task->title); ?></a></td>
+                            <td><?php echo e($task->start_at->format('h:ia D d M, Y')); ?></td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <?php if($task->status == TRUE): ?>
+                                        <span class="label label-success">COMPLETED</span>
+                                    <?php else: ?>
+                                        <span class="label label-warning">PENDING</span>
+                                    <?php endif; ?>
+                                    <a href="<?php echo e(URL::to('tasks-update-status/'.$task->id)); ?>"><i class="ti-reload"></i></a>
+
+                                </div>
+                            </td>
+
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="<?php echo e(URL::to('tasks/'.$task->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                <?php echo Form::model($task ,array('style'=>'margin: 0px;', 'action'=> array('TaskController@destroy',$task->id))); ?>
+
+                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
+                                <?php echo Form::hidden('_method', 'DELETE'); ?>
+
+                                <?php echo Form::close(); ?>
+
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <?php /*End This Month Tasks*/ ?>
+        <?php /*Start Next Month Tasks*/ ?>
+        <h4>Next Month's Tasks</h4>
+        <div class="panel panel-white">
+
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="example">
+                    <thead>
+                    <tr>
+                        <th style="width:1px;">#</th>
+                        <th class="hidden-xs">Title</th>
+                        <th style="width:217px;">Starting Date</th>
+                        <th style="width:113px;"></th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php $f = 1; ?>
+                    <?php foreach($nextmonthtasks as $task): ?>
+                        <tr>
+                            <td class="center"><?php echo e($f++); ?></td>
+                            <td class="hidden-xs"><a href="<?php echo e(URL::to('tasks/'.$task->id)); ?>"><?php echo e($task->title); ?></a></td>
+                            <td><?php echo e($task->start_at->format('h:ia D d M, Y')); ?></td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <?php if($task->status == TRUE): ?>
+                                        <span class="label label-success">COMPLETED</span>
+                                    <?php else: ?>
+                                        <span class="label label-warning">PENDING</span>
+                                    <?php endif; ?>
+                                    <a href="<?php echo e(URL::to('tasks-update-status/'.$task->id)); ?>"><i class="ti-reload"></i></a>
+
+                                </div>
+                            </td>
+
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="<?php echo e(URL::to('tasks/'.$task->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                <?php echo Form::model($task ,array('style'=>'margin: 0px;', 'action'=> array('TaskController@destroy',$task->id))); ?>
+
+                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
+                                <?php echo Form::hidden('_method', 'DELETE'); ?>
+
+                                <?php echo Form::close(); ?>
+
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <?php /*End Next Month Tasks*/ ?>
+        <?php /*Start Other Tasks*/ ?>
+        <h4>Other Tasks</h4>
+        <div class="panel panel-white">
+
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="example">
+                    <thead>
+                    <tr>
+                        <th style="width:1px;">#</th>
+                        <th class="hidden-xs">Title</th>
+                        <th style="width:217px;">Starting Date</th>
+                        <th style="width:113px;"></th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <?php $g = 1; ?>
+                    <?php foreach($othertasks as $task): ?>
+                        <tr>
+                            <td class="center"><?php echo e($g++); ?></td>
+                            <td class="hidden-xs"><a href="<?php echo e(URL::to('tasks/'.$task->id)); ?>"><?php echo e($task->title); ?></a></td>
+                            <td><?php echo e($task->start_at->format('h:ia D d M, Y')); ?></td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                    <?php if($task->status == TRUE): ?>
+                                        <span class="label label-success">COMPLETED</span>
+                                    <?php else: ?>
+                                        <span class="label label-warning">PENDING</span>
+                                    <?php endif; ?>
+                                    <a href="<?php echo e(URL::to('tasks-update-status/'.$task->id)); ?>"><i class="ti-reload"></i></a>
+
+                                </div>
+                            </td>
+
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="<?php echo e(URL::to('tasks/'.$task->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                <?php echo Form::model($task ,array('style'=>'margin: 0px;', 'action'=> array('TaskController@destroy',$task->id))); ?>
+
+                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
+                                <?php echo Form::hidden('_method', 'DELETE'); ?>
+
+                                <?php echo Form::close(); ?>
+
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <?php /*End Other Tasks*/ ?>
+
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('dataTables'); ?>
+    <script type="text/javascript" charset="utf-8" language="javascript" src="http://datatables.net/release-datatables/media/js/jquery.js"></script>
+    <script type="text/javascript" charset="utf-8" language="javascript" src="http://datatables.net/release-datatables/media/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf-8" language="javascript" src="http://datatables.net/media/blog/bootstrap_2/DT_bootstrap.js"></script>
+<?php $__env->stopSection(); ?>
+
+
+
+<?php echo $__env->make('template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
