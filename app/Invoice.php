@@ -37,6 +37,82 @@ class Invoice extends Model {
     }
 
     /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeOverdue($query)
+    {
+        return $query->where('date_due','<', Carbon::now()->format('Y-m-d H:i:s'))
+            ->where('status', FALSE)
+            ->orderBy('date_due', 'asc');
+    }
+
+    public function scopeToday($query)
+    {
+        return $query->where('date_due', '>=', Carbon::now())
+            ->where('date_due', '<=', Carbon::now()->endOfDay())
+            ->where('status', FALSE)
+            ->orderBy('date_due', 'asc');
+    }
+
+    public function scopeTomorrow($query)
+    {
+        return $query->where('date_due', '>=', Carbon::parse('tomorrow')->startOfDay())
+            ->where('date_due', '<=', Carbon::parse('tomorrow')->endOfDay())
+            ->where('status', FALSE)
+            ->orderBy('date_due', 'asc');
+    }
+
+    public function scopeThisWeek($query)
+    {
+        return $query->where('date_due', '>', Carbon::parse('tomorrow')->endOfDay())
+            ->where('date_due', '<=', Carbon::now()->endOfWeek())
+            ->where('status', FALSE)
+            ->orderBy('date_due', 'asc');
+    }
+
+    public function scopeNextWeek($query)
+    {
+        return $query->where('date_due', '>=', Carbon::parse('next week')->startOfWeek())
+            ->where('date_due', '<', Carbon::parse('next week')->endOfWeek())
+            ->where('status', FALSE)
+            ->orderBy('date_due', 'asc');
+    }
+
+    public function scopeThisMonth($query)
+    {
+        return $query->where('date_due', '>', Carbon::parse('next week')->endOfWeek())
+            ->where('date_due', '<=', Carbon::now()->endOfMonth())
+            ->where('status', FALSE)
+            ->orderBy('date_due', 'asc');
+    }
+
+    public function scopeNextMonth($query)
+    {
+        return $query->where('date_due', '>=', Carbon::parse('next month')->startOfMonth())
+            ->where('date_due', '<=', Carbon::parse('next month')->endOfMonth())
+            ->where('status', FALSE)
+            ->orderBy('date_due', 'asc');
+    }
+
+    public function scopeOther($query)
+    {
+        return $query->where('date_due', '>', Carbon::parse('next month')->endOfMonth())
+            ->where('status', FALSE)
+            ->orderBy('date_due', 'asc');
+    }
+
+    public function scopeCompleted($query)
+    {
+        return $query->where('status', TRUE);
+    }
+
+    public function scopePending($query)
+    {
+        return $query->where('status', FALSE);
+    }
+
+    /**
      * Set the due date to Carbon Instance
      * @param $date
      */

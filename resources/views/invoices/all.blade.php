@@ -12,7 +12,7 @@
         </p>
 
         {{--Start Overdue invoices--}}
-        <h4>Overdue invoices</h4>
+        <h4>Overdue Invoices</h4>
         <div class="panel panel-white">
 
             <div class="panel-body">
@@ -21,7 +21,8 @@
                     <tr>
                         <th style="width:1px;">#</th>
                         <th class="hidden-xs">Title</th>
-                        <th style="width:217px;">Starting Date</th>
+                        <th class="hidden-xs">Client Name</th>
+                        <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
                         <th style="width:1px;"></th>
                         <th style="width:1px;"></th>
@@ -33,7 +34,8 @@
                     @foreach($overdueinvoices as $invoice)
                         <tr>
                             <td class="center">{{ $a++ }}</td>
-                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->title }}</a></td>
+                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->id }}</a></td>
+                            <td>{{ $invoice->client->fullnameAndCompany }}</td>
                             <td>{{ $invoice->start_at->format('h:ia D d M, Y') }}</td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
@@ -67,7 +69,7 @@
 
         {{--End OverDue invoices--}}
         {{--Start Today invoices--}}
-        <h4>Today's invoices</h4>
+        <h4>Today's Invoices</h4>
         <div class="panel panel-white">
 
 
@@ -77,7 +79,8 @@
                     <tr>
                         <th style="width:1px;">#</th>
                         <th class="hidden-xs">Title</th>
-                        <th style="width:217px;">Starting Date</th>
+                        <th class="hidden-xs">Client Name</th>
+                        <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
                         <th style="width:1px;"></th>
                         <th style="width:1px;"></th>
@@ -89,7 +92,8 @@
                     @foreach($todayinvoices as $invoice)
                         <tr>
                             <td class="center">{{ $b++ }}</td>
-                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->title }}</a></td>
+                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->id }}</a></td>
+                            <td>{{ $invoice->client->fullnameAndCompany }}</td>
                             <td>{{ $invoice->start_at->format('h:ia D d M, Y') }}</td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
@@ -124,7 +128,7 @@
 
         {{--End Today invoices--}}
         {{--Start Tomorrow invoices--}}
-        <h4>Tomorrow's invoices</h4>
+        <h4>Tomorrow's Invoices</h4>
         <div class="panel panel-white">
 
 
@@ -134,7 +138,8 @@
                     <tr>
                         <th style="width:1px;">#</th>
                         <th class="hidden-xs">Title</th>
-                        <th style="width:217px;">Starting Date</th>
+                        <th class="hidden-xs">Client Name</th>
+                        <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
                         <th style="width:1px;"></th>
                         <th style="width:1px;"></th>
@@ -146,7 +151,8 @@
                     @foreach($tomorrowinvoices as $invoice)
                         <tr>
                             <td class="center">{{ $c++ }}</td>
-                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->title }}</a></td>
+                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->id }}</a></td>
+                            <td>{{ $invoice->client->fullnameAndCompany }}</td>
                             <td>{{ $invoice->start_at->format('h:ia D d M, Y') }}</td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
@@ -181,7 +187,7 @@
 
         {{--End Tomorrow invoices--}}
         {{--Start This Week invoices--}}
-        <h4>This Week's invoices</h4>
+        <h4>This Week's Invoices</h4>
         <div class="panel panel-white">
 
 
@@ -191,7 +197,8 @@
                     <tr>
                         <th style="width:1px;">#</th>
                         <th class="hidden-xs">Title</th>
-                        <th style="width:217px;">Starting Date</th>
+                        <th class="hidden-xs">Client Name</th>
+                        <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
                         <th style="width:1px;"></th>
                         <th style="width:1px;"></th>
@@ -203,7 +210,8 @@
                     @foreach($thisweekinvoices as $invoice)
                         <tr>
                             <td class="center">{{ $d++ }}</td>
-                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->title }}</a></td>
+                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->id }}</a></td>
+                            <td>{{ $invoice->client->fullnameAndCompany }}</td>
                             <td>{{ $invoice->start_at->format('h:ia D d M, Y') }}</td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
@@ -238,7 +246,7 @@
 
         {{--End This Week invoices--}}
         {{--Start Next Week invoices--}}
-        <h4>Next Week's invoices</h4>
+        <h4>Next Week's Invoices</h4>
         <div class="panel panel-white">
 
 
@@ -248,7 +256,8 @@
                     <tr>
                         <th style="width:1px;">#</th>
                         <th class="hidden-xs">Title</th>
-                        <th style="width:217px;">Starting Date</th>
+                        <th class="hidden-xs">Client Name</th>
+                        <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
                         <th style="width:1px;"></th>
                         <th style="width:1px;"></th>
@@ -259,7 +268,8 @@
                     @foreach($nextweekinvoices as $invoice)
                         <tr>
                             <td class="center">{{ $e++ }}</td>
-                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->title }}</a></td>
+                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->id }}</a></td>
+                            <td>{{ $invoice->client->fullnameAndCompany }}</td>
                             <td>{{ $invoice->start_at->format('h:ia D d M, Y') }}</td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
@@ -295,7 +305,7 @@
         {{--End Next Week invoices--}}
 
         {{--Start This Month invoices--}}
-        <h4>This Month's invoices</h4>
+        <h4>This Month's Invoices</h4>
         <div class="panel panel-white">
 
 
@@ -305,7 +315,8 @@
                     <tr>
                         <th style="width:1px;">#</th>
                         <th class="hidden-xs">Title</th>
-                        <th style="width:217px;">Starting Date</th>
+                        <th class="hidden-xs">Client Name</th>
+                        <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
                         <th style="width:1px;"></th>
                         <th style="width:1px;"></th>
@@ -317,7 +328,8 @@
                     @foreach($thismonthinvoices as $invoice)
                         <tr>
                             <td class="center">{{ $h++ }}</td>
-                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->title }}</a></td>
+                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->id }}</a></td>
+                            <td>{{ $invoice->client->fullnameAndCompany }}</td>
                             <td>{{ $invoice->start_at->format('h:ia D d M, Y') }}</td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
@@ -351,7 +363,7 @@
 
         {{--End This Month invoices--}}
         {{--Start Next Month invoices--}}
-        <h4>Next Month's invoices</h4>
+        <h4>Next Month's Invoices</h4>
         <div class="panel panel-white">
 
 
@@ -361,7 +373,8 @@
                     <tr>
                         <th style="width:1px;">#</th>
                         <th class="hidden-xs">Title</th>
-                        <th style="width:217px;">Starting Date</th>
+                        <th class="hidden-xs">Client Name</th>
+                        <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
                         <th style="width:1px;"></th>
                         <th style="width:1px;"></th>
@@ -373,7 +386,8 @@
                     @foreach($nextmonthinvoices as $invoice)
                         <tr>
                             <td class="center">{{ $f++ }}</td>
-                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->title }}</a></td>
+                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->id }}</a></td>
+                            <td>{{ $invoice->client->fullnameAndCompany }}</td>
                             <td>{{ $invoice->start_at->format('h:ia D d M, Y') }}</td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
@@ -417,7 +431,8 @@
                     <tr>
                         <th style="width:1px;">#</th>
                         <th class="hidden-xs">Title</th>
-                        <th style="width:217px;">Starting Date</th>
+                        <th class="hidden-xs">Client Name</th>
+                        <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
                         <th style="width:1px;"></th>
                         <th style="width:1px;"></th>
@@ -429,7 +444,8 @@
                     @foreach($otherinvoices as $invoice)
                         <tr>
                             <td class="center">{{ $g++ }}</td>
-                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->title }}</a></td>
+                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->id }}</a></td>
+                            <td>{{ $invoice->client->fullnameAndCompany }}</td>
                             <td>{{ $invoice->start_at->format('h:ia D d M, Y') }}</td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">

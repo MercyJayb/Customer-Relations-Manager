@@ -1,0 +1,52 @@
+<div class="form-group <?php echo ($errors->has('company')) ? "has-error" : ""; ?>">
+	<?php echo Form::label('company','Company Name:'); ?>
+
+	<?php echo Form::text('company', Input::old('company'), array("class"=>"form-control", 'placeholder'=>'Company Name') ); ?>
+
+</div>
+
+<p>Contact Person Details:</p>
+
+<div class="form-group <?php echo ($errors->has('firstname')) ? "has-error" : ""; ?>">
+	<?php echo Form::label('firstname','Firstname:'); ?>
+
+	<?php echo Form::text('firstname', Input::old('firstname'), array("class"=>"form-control", 'placeholder'=>'Firstname') ); ?>
+
+</div>
+
+<div class="form-group <?php echo ($errors->has('lastname')) ? "has-error" : ""; ?>">
+	<?php echo Form::label('lastname','Lastname:'); ?>
+
+	<?php echo Form::text('lastname', Input::old('lastname'), array("class"=>"form-control", 'placeholder'=>'Lastname') ); ?>
+
+</div>
+
+<div class="form-group <?php echo ($errors->has('email')) ? "has-error" : ""; ?>">
+<?php echo Form::label('email','Email:'); ?>
+
+<?php echo Form::text('email', Input::old('email'), array("class"=>"form-control", 'placeholder'=>'user1@example.com') ); ?>
+
+</div>
+
+<div class="form-group <?php echo ($errors->has('emails')) ? "has-error" : ""; ?>">
+<?php echo Form::label('emails','Other Emails:'); ?>
+
+<?php echo Form::text('emails', Input::old('emails'), array("class"=>"form-control", 'placeholder'=>'user2@example.com, user3@example.com') ); ?>
+
+</div>
+
+<div class="form-group <?php echo ($errors->has('phone')) ? "has-error" : ""; ?>">
+	<?php echo Form::label('phone','Phone:'); ?>
+
+	<?php echo Form::text('phone', Input::old('phone'), array("class"=>"form-control", 'placeholder'=>'+254721***661') ); ?>
+
+</div>
+
+<div class="form-group <?php echo ($errors->has('address')) ? "has-error" : ""; ?>">
+	<?php echo Form::label('address','Postal Address:'); ?>
+
+	<?php echo Form::textarea('address', Input::old('address'), array("class"=>"form-control",'placeholder'=>'Postal Address') ); ?>
+
+</div>
+
+	<?php echo Form::submit('Submit', array('class'=>'btn btn-primary')); ?>

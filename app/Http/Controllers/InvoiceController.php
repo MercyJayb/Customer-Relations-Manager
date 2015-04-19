@@ -38,6 +38,46 @@ class InvoiceController extends Controller {
 		return view('invoices.index', compact('invoices', 'title','subtitle'));
 	}
 
+    public function completedInvoices()
+    {
+        $invoices = Invoice::completed()->get();
+
+        $title = 'All Settled Invoices';
+
+        $subtitle = "view and update invoices records";
+
+        return view('invoices.index', compact('invoices', 'title', 'subtitle'));
+    }
+
+    public function pendingInvoices()
+    {
+        $invoices = Invoice::pending()->get();
+
+        $title = 'All Pending Invoices';
+
+        $subtitle = "view and update invoices records";
+
+        return view('invoices.index', compact('invoices', 'title', 'subtitle'));
+    }
+
+    public function all()
+    {
+        $overdueinvoices = Invoice::overdue()->get();
+        $todayinvoices = Invoice::today()->get();
+        $tomorrowinvoices = Invoice::tomorrow()->get();
+        $thisweekinvoices = Invoice::thisWeek()->get();
+        $nextweekinvoices = Invoice::nextWeek()->get();
+        $thismonthinvoices = Invoice::thisMonth()->get();
+        $nextmonthinvoices = Invoice::nextMonth()->get();
+        $otherinvoices = Invoice::Other()->get();
+
+        $title = 'All Invoices';
+
+        $subtitle = "view and update invoices records per time";
+
+        return view('invoices.all', compact('overdueinvoices','todayinvoices','tomorrowinvoices','thisweekinvoices','nextweekinvoices','thismonthinvoices','nextmonthinvoices','otherinvoices', 'title', 'subtitle'));
+    }
+
     public function updateStatus(Invoice $invoice)
     {
         if($invoice->status){

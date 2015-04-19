@@ -203,7 +203,17 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ URL::to('invoices') }}">
+                                        <a href="{{ URL::to('invoices-pending') }}">
+                                            <span class="title"> Pending Invoices <span class="badge">{{ CRM\Invoice::pending()->count()  }}</span> </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ URL::to('invoices-completed') }}">
+                                            <span class="title"> Settled Invoices <span class="badge">{{ CRM\Invoice::completed()->count()  }}</span> </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ URL::to('invoices-all') }}">
                                             <span class="title"> All Invoices <span class="badge">{{ CRM\Invoice::all()->count()  }}</span> </span>
                                         </a>
                                     </li>

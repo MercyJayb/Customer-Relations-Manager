@@ -45,6 +45,13 @@ post('newinvoice', 'InvoiceController@getClientServices');
 
 get('invoices-update-status/{invoices}','InvoiceController@updateStatus');
 
+get('invoices-completed','InvoiceController@completedInvoices');
+
+get('invoices-pending','InvoiceController@pendingInvoices');
+
+get('invoices-all','InvoiceController@all');
+
+
 
 //Tenders
 get('tenders-all','TenderController@all');
