@@ -1,0 +1,33 @@
+
+
+<div class="form-group <?php echo ($errors->has('client_id')) ? "has-error" : ""; ?>">
+<?php echo Form::label('client_id','Choose Client:'); ?>
+
+<?php echo Form::select('client_id', [''=>'Select Client'] + $clients, Input::old('level_id'), array("class"=>"form-control", 'placeholder'=>'Level') ); ?>
+
+</div>
+
+<div class="form-group <?php echo ($errors->has('name')) ? "has-error" : ""; ?>">
+	<?php echo Form::label('title','Tender Title:'); ?>
+
+	<?php echo Form::text('title', Input::old('name'), array("class"=>"form-control", 'placeholder'=>'Tender Title') ); ?>
+
+</div>
+
+<div class="form-group <?php echo ($errors->has('description')) ? "has-error" : ""; ?>">
+	<?php echo Form::label('description','Tender Description:'); ?>
+
+	<?php echo Form::textarea('description', Input::old('description'), array("class"=>"form-control", 'placeholder'=>'Title Description') ); ?>
+
+</div>
+
+<div class="form-group <?php echo ($errors->has('start_date')) ? "has-error" : ""; ?>">
+<?php echo Form::label('start_date','Due Date:'); ?>
+
+<?php echo Form::input('date','start_date', Carbon\Carbon::parse($tender->start_date)->format('Y-m-d'), array("class"=>"form-control datepicker") ); ?>
+
+</div>
+
+<?php echo Form::submit($btnText, array('class'=>'btn btn-primary')); ?>
+
+

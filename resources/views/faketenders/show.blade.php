@@ -18,20 +18,13 @@
                     <h3 class="panel-title">Tender Details</h3>
                 </div>
                 <div class="panel-body">
-                    <p><b>Tender Name:</b> {{ $tender->title }}</p>
-                    <p><b>Client Name:</b> {{ $tender->client->fullnameAndCompany }}</p>
-                    <p>Status:
-                        @if($tender->status == TRUE)
-                            <span class="label label-success">COMPLETED</span>
-                        @else
-                            <span class="label label-warning">PENDING</span>
-                        @endif
-                        <a href="{{ URL::to('tenders-update-status/'.$tender->id)  }}"><i class="ti-reload"></i></a>
-                    </p>
-                    <p>Due Date: {{ Carbon\Carbon::parse($tender->start_date)->format('D d M, Y') }}</p>
+                    <p><b>faketender Name:</b> {{ $faketender->title }}</p>
+                    <p><b>Client Name:</b> {{ $faketender->client }}</p>
+                    
+                    <p>Due Date: {{ Carbon\Carbon::parse($faketender->start_date)->format('D d M, Y') }}</p>
 
-                    <p>Created On: {{ Carbon\Carbon::parse($tender->created_at)->format('D d M, Y') }}</p>
-                    <p>Last Updated On: {{ Carbon\Carbon::parse($tender->updated_at)->format('D d M, Y') }}</p>
+                    <p>Created On: {{ Carbon\Carbon::parse($faketender->created_at)->format('D d M, Y') }}</p>
+                    <p>Last Updated On: {{ Carbon\Carbon::parse($faketender->updated_at)->format('D d M, Y') }}</p>
                 </div>
             </div>
         </div>
@@ -43,7 +36,7 @@
                 </div>
                 <div class="panel-body">
 
-                    <p><a href="{{ url('tenders/'.$tender->id.'/edit') }}"> <i class="ti-pencil-alt"></i> Update Tender</a></p>
+                    <p><a href="{{ url('faketenders/'.$faketender->id.'/edit') }}"> <i class="ti-pencil-alt"></i> Update faketender</a></p>
                 </div>
             </div>
         </div>
@@ -58,7 +51,7 @@
                 </div>
                 <div class="panel-body">
 
-                    <p>{!! nl2br(e($tender->description)) !!}</p>
+                    <p>{!! nl2br(e($faketender->description)) !!}</p>
 
                 </div>
             </div>

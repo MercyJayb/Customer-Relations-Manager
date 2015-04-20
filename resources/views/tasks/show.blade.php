@@ -27,9 +27,9 @@
                             @endif
                             <a href="{{ URL::to('tasks-update-status/'.$task->id)  }}"><i class="ti-reload"></i></a>
                         </p>
-                        <p>Created On: {{ $task->created_at->format('D d M, Y') }}</p>
-                        <p>Due Date: {{ $task->start_at->format('D d M, Y') }}</p>
-                        <p>Last Updated On: {{ $task->updated_at->format('D d M, Y') }}</p>
+                        <p>Created On: {{ Carbon\Carbon::parse($task->created_at)->format('D d M, Y') }}</p>
+                        <p>Due Date: {{ Carbon\Carbon::parse($task->start_at)->format('D d M, Y') }}</p>
+                        <p>Last Updated On: {{ Carbon\Carbon::parse($task->updated_at)->format('D d M, Y') }}</p>
                     </div>
                 </div>
             </div>

@@ -16,7 +16,7 @@
         <div class="col-sm-8">
             <div class="panel panel-white">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Project Details</h3>
+                    <h3 class="panel-title">Tender Details</h3>
                 </div>
                 <div class="panel-body">
                     <p><b>Tender Name:</b> <?php echo e($tender->title); ?></p>
@@ -29,10 +29,10 @@
                         <?php endif; ?>
                         <a href="<?php echo e(URL::to('tenders-update-status/'.$tender->id)); ?>"><i class="ti-reload"></i></a>
                     </p>
-                    <p>Due Date: <?php echo e($tender->start_date->format('Y-m-d')); ?></p>
+                    <p>Due Date: <?php echo e(Carbon\Carbon::parse($tender->start_date)->format('D d M, Y')); ?></p>
 
-                    <p>Created On: <?php echo e($tender->created_at); ?></p>
-                    <p>Last Updated On: <?php echo e($tender->updated_at); ?></p>
+                    <p>Created On: <?php echo e(Carbon\Carbon::parse($tender->created_at)->format('D d M, Y')); ?></p>
+                    <p>Last Updated On: <?php echo e(Carbon\Carbon::parse($tender->updated_at)->format('D d M, Y')); ?></p>
                 </div>
             </div>
         </div>
@@ -50,6 +50,23 @@
         </div>
 
     </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Description</h3>
+                </div>
+                <div class="panel-body">
+
+                    <p><?php echo nl2br(e($tender->description)); ?></p>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

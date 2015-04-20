@@ -27,13 +27,12 @@
                     </thead>
                     <tbody>
 
-
                         <?php foreach($tenders as $tender): ?>
                         <tr>
                             <td class="center"><?php echo e($tender->id); ?></td>
                             <td><a href="<?php echo e(URL::to('tenders/'.$tender->id)); ?>"><?php echo e($tender->title); ?></a></td>
                             <td class="hidden-xs"><?php echo e($tender->client->fullnameAndCompany); ?></td>
-                            <td><?php echo e($tender->start_date->format('h:ia D d M, Y')); ?> (<small><?php echo e($tender->start_date->diffForHumans()); ?></small>)</td>
+                            <td><?php echo e($tender->start_date->format('h:ia D d M, Y')); ?> </td>
                             <td>
                                     <?php if($tender->status == TRUE): ?>
                                         <span class="label label-success">COMPLETED</span>
