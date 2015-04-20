@@ -19,10 +19,9 @@
                 <table class="table table-striped table-bordered table-hover" id="example">
                     <thead>
                     <tr>
-                        <th style="width:1px;">#</th>
-                        <th class="hidden-xs">Title</th>
+                        <th class="hidden-xs">Invoice Number</th>
                         <th class="hidden-xs">Client Name</th>
-                        <th class="hidden-xs">Frequency</th>
+                        <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
                         <th style="width:1px;"></th>
@@ -31,14 +30,12 @@
                     </thead>
                     <tbody>
 
-                    <?php $a = 1; ?>
                     @foreach($overdueinvoices as $invoice)
                         <tr>
-                            <td class="center">{{ $a++ }}</td>
-                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->id }}</a></td>
+                            <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
                             <td>{{ $invoice->client->fullnameAndCompany }}</td>
-                            <td>{{ CRM\Invoice::frequency($invoice->frequency) }}</td>
-                            <td>{{ Carbon\Carbon::parse($invoice->date_due)->format('D d M, Y') }}</td>
+                            <td>{{ $invoice->total }}</td>
+                            <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
 
@@ -53,11 +50,11 @@
                             </td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('invoices/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
                                 </div>
                             </td>
                             <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('InvoiceController@destroy',$invoice->id))) !!}
+                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
                                 <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
                                 {!! Form::hidden('_method', 'DELETE') !!}
                                 {!!Form::close()!!}
@@ -79,10 +76,9 @@
                 <table class="table table-striped table-bordered table-hover" id="example">
                     <thead>
                     <tr>
-                        <th style="width:1px;">#</th>
-                        <th class="hidden-xs">Title</th>
+                        <th class="hidden-xs">Invoice Number</th>
                         <th class="hidden-xs">Client Name</th>
-                        <th class="hidden-xs">Frequency</th>
+                        <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
                         <th style="width:1px;"></th>
@@ -91,14 +87,12 @@
                     </thead>
                     <tbody>
 
-                    <?php $b = 1; ?>
                     @foreach($todayinvoices as $invoice)
                         <tr>
-                            <td class="center">{{ $b++ }}</td>
-                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->id }}</a></td>
+                            <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
                             <td>{{ $invoice->client->fullnameAndCompany }}</td>
-                            <td>{{ CRM\Invoice::frequency($invoice->frequency) }}</td>
-                            <td>{{ Carbon\Carbon::parse($invoice->date_due)->format('D d M, Y') }}</td>
+                            <td>{{ $invoice->total }}</td>
+                            <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
 
@@ -114,11 +108,11 @@
                             </td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('invoices/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
                                 </div>
                             </td>
                             <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('InvoiceController@destroy',$invoice->id))) !!}
+                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
                                 <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
                                 {!! Form::hidden('_method', 'DELETE') !!}
                                 {!!Form::close()!!}
@@ -140,10 +134,9 @@
                 <table class="table table-striped table-bordered table-hover" id="example">
                     <thead>
                     <tr>
-                        <th style="width:1px;">#</th>
-                        <th class="hidden-xs">Title</th>
+                        <th class="hidden-xs">Invoice Number</th>
                         <th class="hidden-xs">Client Name</th>
-                        <th class="hidden-xs">Frequency</th>
+                        <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
                         <th style="width:1px;"></th>
@@ -152,14 +145,12 @@
                     </thead>
                     <tbody>
 
-                    <?php $c = 1; ?>
                     @foreach($tomorrowinvoices as $invoice)
                         <tr>
-                            <td class="center">{{ $c++ }}</td>
-                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->id }}</a></td>
+                            <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
                             <td>{{ $invoice->client->fullnameAndCompany }}</td>
-                            <td>{{ CRM\Invoice::frequency($invoice->frequency) }}</td>
-                            <td>{{ Carbon\Carbon::parse($invoice->date_due)->format('D d M, Y') }}</td>
+                            <td>{{ $invoice->total }}</td>
+                            <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
 
@@ -175,11 +166,11 @@
 
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('invoices/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
                                 </div>
                             </td>
                             <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('InvoiceController@destroy',$invoice->id))) !!}
+                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
                                 <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
                                 {!! Form::hidden('_method', 'DELETE') !!}
                                 {!!Form::close()!!}
@@ -201,10 +192,9 @@
                 <table class="table table-striped table-bordered table-hover" id="example">
                     <thead>
                     <tr>
-                        <th style="width:1px;">#</th>
-                        <th class="hidden-xs">Title</th>
+                        <th class="hidden-xs">Invoice Number</th>
                         <th class="hidden-xs">Client Name</th>
-                        <th class="hidden-xs">Frequency</th>
+                        <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
                         <th style="width:1px;"></th>
@@ -213,14 +203,12 @@
                     </thead>
                     <tbody>
 
-                    <?php $d = 1; ?>
                     @foreach($thisweekinvoices as $invoice)
                         <tr>
-                            <td class="center">{{ $d++ }}</td>
-                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->id }}</a></td>
+                            <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
                             <td>{{ $invoice->client->fullnameAndCompany }}</td>
-                            <td>{{ CRM\Invoice::frequency($invoice->frequency) }}</td>
-                            <td>{{ Carbon\Carbon::parse($invoice->date_due)->format('D d M, Y') }}</td>
+                            <td>{{ $invoice->total }}</td>
+                            <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
 
@@ -236,11 +224,11 @@
 
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('invoices/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
                                 </div>
                             </td>
                             <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('InvoiceController@destroy',$invoice->id))) !!}
+                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
                                 <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
                                 {!! Form::hidden('_method', 'DELETE') !!}
                                 {!!Form::close()!!}
@@ -262,10 +250,9 @@
                 <table class="table table-striped table-bordered table-hover" id="example">
                     <thead>
                     <tr>
-                        <th style="width:1px;">#</th>
-                        <th class="hidden-xs">Title</th>
+                        <th class="hidden-xs">Invoice Number</th>
                         <th class="hidden-xs">Client Name</th>
-                        <th class="hidden-xs">Frequency</th>
+                        <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
                         <th style="width:1px;"></th>
@@ -273,14 +260,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <?php $e = 1; ?>
                     @foreach($nextweekinvoices as $invoice)
                         <tr>
-                            <td class="center">{{ $e++ }}</td>
-                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->id }}</a></td>
+                            <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
                             <td>{{ $invoice->client->fullnameAndCompany }}</td>
-                            <td>{{ Carbon\Carbon::parse($invoice->date_due)->format('D d M, Y') }}</td>
-                            <td>{{ CRM\Invoice::frequency($invoice->frequency) }}</td>
+                            <td>{{ $invoice->total }}</td>
+                            <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
 
@@ -296,11 +281,11 @@
 
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('invoices/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
                                 </div>
                             </td>
                             <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('InvoiceController@destroy',$invoice->id))) !!}
+                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
                                 <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
                                 {!! Form::hidden('_method', 'DELETE') !!}
                                 {!!Form::close()!!}
@@ -323,10 +308,9 @@
                 <table class="table table-striped table-bordered table-hover" id="example">
                     <thead>
                     <tr>
-                        <th style="width:1px;">#</th>
-                        <th class="hidden-xs">Title</th>
+                        <th class="hidden-xs">Invoice Number</th>
                         <th class="hidden-xs">Client Name</th>
-                        <th style="width:217px;">Frequency</th>
+                        <th style="width:217px;">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
                         <th style="width:1px;"></th>
@@ -335,14 +319,12 @@
                     </thead>
                     <tbody>
 
-                    <?php $h = 1; ?>
                     @foreach($thismonthinvoices as $invoice)
                         <tr>
-                            <td class="center">{{ $h++ }}</td>
-                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->id }}</a></td>
+                            <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
                             <td>{{ $invoice->client->fullnameAndCompany }}</td>
-                            <td>{{ CRM\Invoice::frequency($invoice->frequency) }}</td>
-                            <td>{{ Carbon\Carbon::parse($invoice->date_due)->format('D d M, Y') }}</td>
+                            <td>{{ $invoice->total }}</td>
+                            <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
                                     @if($invoice->status == TRUE)
@@ -357,11 +339,11 @@
 
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('invoices/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
                                 </div>
                             </td>
                             <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('InvoiceController@destroy',$invoice->id))) !!}
+                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
                                 <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
                                 {!! Form::hidden('_method', 'DELETE') !!}
                                 {!!Form::close()!!}
@@ -383,10 +365,9 @@
                 <table class="table table-striped table-bordered table-hover" id="example">
                     <thead>
                     <tr>
-                        <th style="width:1px;">#</th>
-                        <th class="hidden-xs">Title</th>
+                        <th class="hidden-xs">Invoice Number</th>
                         <th class="hidden-xs">Client Name</th>
-                        <th class="hidden-xs">Frequency</th>
+                        <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
                         <th style="width:1px;"></th>
@@ -395,14 +376,12 @@
                     </thead>
                     <tbody>
 
-                    <?php $f = 1; ?>
                     @foreach($nextmonthinvoices as $invoice)
                         <tr>
-                            <td class="center">{{ $f++ }}</td>
-                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->id }}</a></td>
+                            <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
                             <td>{{ $invoice->client->fullnameAndCompany }}</td>
-                            <td>{{ CRM\Invoice::frequency($invoice->frequency) }}</td>
-                            <td>{{ Carbon\Carbon::parse($invoice->date_due)->format('D d M, Y') }}</td>
+                            <td>{{ $invoice->total }}</td>
+                            <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
                                     @if($invoice->status == TRUE)
@@ -417,11 +396,11 @@
 
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('invoices/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
                                 </div>
                             </td>
                             <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('InvoiceController@destroy',$invoice->id))) !!}
+                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
                                 <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
                                 {!! Form::hidden('_method', 'DELETE') !!}
                                 {!!Form::close()!!}
@@ -434,8 +413,8 @@
         </div>
 
         {{--End Next Month invoices--}}
-        {{--Start Other invoices--}}
-        <h4>Other invoices</h4>
+        {{--Start Next 2 Months invoices--}}
+        <h4>{{ Carbon\Carbon::now()->addMonths(2)->format('F') }} invoices</h4>
         <div class="panel panel-white">
 
 
@@ -443,10 +422,9 @@
                 <table class="table table-striped table-bordered table-hover" id="example">
                     <thead>
                     <tr>
-                        <th style="width:1px;">#</th>
-                        <th class="hidden-xs">Title</th>
+                        <th class="hidden-xs">Invoice Number</th>
                         <th class="hidden-xs">Client Name</th>
-                        <th class="hidden-xs">Frequency</th>
+                        <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
                         <th style="width:1px;"></th>
@@ -455,14 +433,12 @@
                     </thead>
                     <tbody>
 
-                    <?php $g = 1; ?>
-                    @foreach($otherinvoices as $invoice)
+                    @foreach($nexttwomonthsinvoices as $invoice)
                         <tr>
-                            <td class="center">{{ $g++ }}</td>
-                            <td class="hidden-xs"><a href="{{URL::to('invoices/'.$invoice->id)}}">{{ $invoice->id }}</a></td>
+                            <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
                             <td>{{ $invoice->client->fullnameAndCompany }}</td>
-                            <td>{{ CRM\Invoice::frequency($invoice->frequency) }}</td>
-                            <td>{{ Carbon\Carbon::parse($invoice->date_due)->format('D d M, Y') }}</td>
+                            <td>{{ $invoice->total }}</td>
+                            <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
 
@@ -478,11 +454,11 @@
 
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('invoices/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
                                 </div>
                             </td>
                             <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('InvoiceController@destroy',$invoice->id))) !!}
+                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
                                 <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
                                 {!! Form::hidden('_method', 'DELETE') !!}
                                 {!!Form::close()!!}
@@ -494,7 +470,540 @@
             </div>
         </div>
 
-        {{--End Other invoices--}}
+        {{--End Next 2 Months invoices--}}
+
+        {{--Start Next 3 months invoices--}}
+        <h4>{{ Carbon\Carbon::now()->addMonths(3)->format('F') }} invoices</h4>
+        <div class="panel panel-white">
+
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="example">
+                    <thead>
+                    <tr>
+                        <th class="hidden-xs">Invoice Number</th>
+                        <th class="hidden-xs">Client Name</th>
+                        <th class="hidden-xs">Total</th>
+                        <th style="width:217px;">Due Date</th>
+                        <th style="width:113px;"></th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach($nextthreemonthsinvoices as $invoice)
+                        <tr>
+                            <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
+                            <td>{{ $invoice->client->fullnameAndCompany }}</td>
+                            <td>{{ $invoice->total }}</td>
+                            <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                    @if($invoice->status == TRUE)
+                                        <span class="label label-success">COMPLETED</span>
+                                    @else
+                                        <span class="label label-warning">PENDING</span>
+                                    @endif
+                                    <a href="{{ URL::to('invoices-update-status/'.$invoice->id)  }}"><i class="ti-reload"></i></a>
+
+                                </div>
+                            </td>
+
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
+                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
+                                {!! Form::hidden('_method', 'DELETE') !!}
+                                {!!Form::close()!!}
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{--End 3 months invoices--}}
+
+        {{--Start four months invoices--}}
+        <h4>{{ Carbon\Carbon::now()->addMonths(4)->format('F') }} invoices</h4>
+        <div class="panel panel-white">
+
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="example">
+                    <thead>
+                    <tr>
+                        <th class="hidden-xs">Invoice Number</th>
+                        <th class="hidden-xs">Client Name</th>
+                        <th class="hidden-xs">Total</th>
+                        <th style="width:217px;">Due Date</th>
+                        <th style="width:113px;"></th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach($nextfourmonthsinvoices as $invoice)
+                        <tr>
+                            <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
+                            <td>{{ $invoice->client->fullnameAndCompany }}</td>
+                            <td>{{ $invoice->total }}</td>
+                            <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                    @if($invoice->status == TRUE)
+                                        <span class="label label-success">COMPLETED</span>
+                                    @else
+                                        <span class="label label-warning">PENDING</span>
+                                    @endif
+                                    <a href="{{ URL::to('invoices-update-status/'.$invoice->id)  }}"><i class="ti-reload"></i></a>
+
+                                </div>
+                            </td>
+
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
+                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
+                                {!! Form::hidden('_method', 'DELETE') !!}
+                                {!!Form::close()!!}
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{--End four months invoices--}}
+
+        {{--Start five months invoices--}}
+        <h4>{{ Carbon\Carbon::now()->addMonths(5)->format('F') }} invoices</h4>
+        <div class="panel panel-white">
+
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="example">
+                    <thead>
+                    <tr>
+                        <th class="hidden-xs">Invoice Number</th>
+                        <th class="hidden-xs">Client Name</th>
+                        <th class="hidden-xs">Total</th>
+                        <th style="width:217px;">Due Date</th>
+                        <th style="width:113px;"></th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach($nextfivemonthsinvoices as $invoice)
+                        <tr>
+                            <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
+                            <td>{{ $invoice->client->fullnameAndCompany }}</td>
+                            <td>{{ $invoice->total }}</td>
+                            <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                    @if($invoice->status == TRUE)
+                                        <span class="label label-success">COMPLETED</span>
+                                    @else
+                                        <span class="label label-warning">PENDING</span>
+                                    @endif
+                                    <a href="{{ URL::to('invoices-update-status/'.$invoice->id)  }}"><i class="ti-reload"></i></a>
+
+                                </div>
+                            </td>
+
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
+                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
+                                {!! Form::hidden('_method', 'DELETE') !!}
+                                {!!Form::close()!!}
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{--End five invoices--}}
+
+        {{--Start six invoices--}}
+        <h4>{{ Carbon\Carbon::now()->addMonths(6)->format('F') }} invoices</h4>
+        <div class="panel panel-white">
+
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="example">
+                    <thead>
+                    <tr>
+                        <th class="hidden-xs">Invoice Number</th>
+                        <th class="hidden-xs">Client Name</th>
+                        <th class="hidden-xs">Total</th>
+                        <th style="width:217px;">Due Date</th>
+                        <th style="width:113px;"></th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach($nextsixmonthsinvoices as $invoice)
+                        <tr>
+                            <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
+                            <td>{{ $invoice->client->fullnameAndCompany }}</td>
+                            <td>{{ $invoice->total }}</td>
+                            <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                    @if($invoice->status == TRUE)
+                                        <span class="label label-success">COMPLETED</span>
+                                    @else
+                                        <span class="label label-warning">PENDING</span>
+                                    @endif
+                                    <a href="{{ URL::to('invoices-update-status/'.$invoice->id)  }}"><i class="ti-reload"></i></a>
+
+                                </div>
+                            </td>
+
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
+                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
+                                {!! Form::hidden('_method', 'DELETE') !!}
+                                {!!Form::close()!!}
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{--End six invoices--}}
+
+        {{--Start seven invoices--}}
+        <h4>{{ Carbon\Carbon::now()->addMonths(7)->format('F') }} invoices</h4>
+        <div class="panel panel-white">
+
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="example">
+                    <thead>
+                    <tr>
+                        <th class="hidden-xs">Invoice Number</th>
+                        <th class="hidden-xs">Client Name</th>
+                        <th class="hidden-xs">Total</th>
+                        <th style="width:217px;">Due Date</th>
+                        <th style="width:113px;"></th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach($nextsevenmonthsinvoices as $invoice)
+                        <tr>
+                            <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
+                            <td>{{ $invoice->client->fullnameAndCompany }}</td>
+                            <td>{{ $invoice->total }}</td>
+                            <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                    @if($invoice->status == TRUE)
+                                        <span class="label label-success">COMPLETED</span>
+                                    @else
+                                        <span class="label label-warning">PENDING</span>
+                                    @endif
+                                    <a href="{{ URL::to('invoices-update-status/'.$invoice->id)  }}"><i class="ti-reload"></i></a>
+
+                                </div>
+                            </td>
+
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
+                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
+                                {!! Form::hidden('_method', 'DELETE') !!}
+                                {!!Form::close()!!}
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{--End seven invoices--}}
+
+        {{--Start eight invoices--}}
+        <h4>{{ Carbon\Carbon::now()->addMonths(8)->format('F') }} invoices</h4>
+        <div class="panel panel-white">
+
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="example">
+                    <thead>
+                    <tr>
+                        <th class="hidden-xs">Invoice Number</th>
+                        <th class="hidden-xs">Client Name</th>
+                        <th class="hidden-xs">Total</th>
+                        <th style="width:217px;">Due Date</th>
+                        <th style="width:113px;"></th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach($nexteightmonthsinvoices as $invoice)
+                        <tr>
+                            <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
+                            <td>{{ $invoice->client->fullnameAndCompany }}</td>
+                            <td>{{ $invoice->total }}</td>
+                            <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                    @if($invoice->status == TRUE)
+                                        <span class="label label-success">COMPLETED</span>
+                                    @else
+                                        <span class="label label-warning">PENDING</span>
+                                    @endif
+                                    <a href="{{ URL::to('invoices-update-status/'.$invoice->id)  }}"><i class="ti-reload"></i></a>
+
+                                </div>
+                            </td>
+
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
+                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
+                                {!! Form::hidden('_method', 'DELETE') !!}
+                                {!!Form::close()!!}
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{--End eight invoices--}}
+
+        {{--Start nine invoices--}}
+        <h4>{{ Carbon\Carbon::now()->addMonths(9)->format('F') }} invoices</h4>
+        <div class="panel panel-white">
+
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="example">
+                    <thead>
+                    <tr>
+                        <th class="hidden-xs">Invoice Number</th>
+                        <th class="hidden-xs">Client Name</th>
+                        <th class="hidden-xs">Total</th>
+                        <th style="width:217px;">Due Date</th>
+                        <th style="width:113px;"></th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach($nextninemonthsinvoices as $invoice)
+                        <tr>
+                            <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
+                            <td>{{ $invoice->client->fullnameAndCompany }}</td>
+                            <td>{{ $invoice->total }}</td>
+                            <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                    @if($invoice->status == TRUE)
+                                        <span class="label label-success">COMPLETED</span>
+                                    @else
+                                        <span class="label label-warning">PENDING</span>
+                                    @endif
+                                    <a href="{{ URL::to('invoices-update-status/'.$invoice->id)  }}"><i class="ti-reload"></i></a>
+
+                                </div>
+                            </td>
+
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
+                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
+                                {!! Form::hidden('_method', 'DELETE') !!}
+                                {!!Form::close()!!}
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{--End nine invoices--}}
+
+        {{--Start ten invoices--}}
+        <h4>{{ Carbon\Carbon::now()->addMonths(10)->format('F') }} invoices</h4>
+        <div class="panel panel-white">
+
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="example">
+                    <thead>
+                    <tr>
+                        <th class="hidden-xs">Invoice Number</th>
+                        <th class="hidden-xs">Client Name</th>
+                        <th class="hidden-xs">Total</th>
+                        <th style="width:217px;">Due Date</th>
+                        <th style="width:113px;"></th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach($nexttenmonthsinvoices as $invoice)
+                        <tr>
+                            <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
+                            <td>{{ $invoice->client->fullnameAndCompany }}</td>
+                            <td>{{ $invoice->total }}</td>
+                            <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                    @if($invoice->status == TRUE)
+                                        <span class="label label-success">COMPLETED</span>
+                                    @else
+                                        <span class="label label-warning">PENDING</span>
+                                    @endif
+                                    <a href="{{ URL::to('invoices-update-status/'.$invoice->id)  }}"><i class="ti-reload"></i></a>
+
+                                </div>
+                            </td>
+
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
+                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
+                                {!! Form::hidden('_method', 'DELETE') !!}
+                                {!!Form::close()!!}
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{--End ten invoices--}}
+
+        {{--Start eleven invoices--}}
+        <h4>{{ Carbon\Carbon::now()->addMonths(11)->format('F') }} invoices</h4>
+        <div class="panel panel-white">
+
+
+            <div class="panel-body">
+                <table class="table table-striped table-bordered table-hover" id="example">
+                    <thead>
+                    <tr>
+                        <th class="hidden-xs">Invoice Number</th>
+                        <th class="hidden-xs">Client Name</th>
+                        <th class="hidden-xs">Total</th>
+                        <th style="width:217px;">Due Date</th>
+                        <th style="width:113px;"></th>
+                        <th style="width:1px;"></th>
+                        <th style="width:1px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach($nextelevenmonthsinvoices as $invoice)
+                        <tr>
+                            <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
+                            <td>{{ $invoice->client->fullnameAndCompany }}</td>
+                            <td>{{ $invoice->total }}</td>
+                            <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+
+                                    @if($invoice->status == TRUE)
+                                        <span class="label label-success">COMPLETED</span>
+                                    @else
+                                        <span class="label label-warning">PENDING</span>
+                                    @endif
+                                    <a href="{{ URL::to('invoices-update-status/'.$invoice->id)  }}"><i class="ti-reload"></i></a>
+
+                                </div>
+                            </td>
+
+                            <td class="center">
+                                <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
+                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
+                                {!! Form::hidden('_method', 'DELETE') !!}
+                                {!!Form::close()!!}
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{--End ten invoices--}}
+
+
 
 
 @stop

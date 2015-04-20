@@ -204,17 +204,17 @@
                                     </li>
                                     <li>
                                         <a href="{{ URL::to('invoices-pending') }}">
-                                            <span class="title"> Pending Invoices <span class="badge">{{ CRM\Invoice::pending()->count()  }}</span> </span>
+                                            <span class="title"> Pending Invoices <span class="badge">{{ CRM\Invoice_Records::pending()->count()  }}</span> </span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ URL::to('invoices-completed') }}">
-                                            <span class="title"> Settled Invoices <span class="badge">{{ CRM\Invoice::completed()->count()  }}</span> </span>
+                                        <a href="{{ URL::to('invoices-settled') }}">
+                                            <span class="title"> Settled Invoices <span class="badge">{{ CRM\Invoice_Records::settled()->count()  }}</span> </span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="{{ URL::to('invoices-all') }}">
-                                            <span class="title"> All Invoices <span class="badge">{{ CRM\Invoice::all()->count()  }}</span> </span>
+                                            <span class="title"> All Invoices <span class="badge">{{ CRM\Invoice_Records::all()->count()  }}</span> </span>
                                         </a>
                                     </li>
 
@@ -346,7 +346,7 @@
                                             <i class="ti-layers-alt"></i>
                                         </div>
                                         <div class="item-inner">
-                                            <span class="title"> Tenders </span><i class="icon-arrow"></i>
+                                            <span class="title">Tenders </span><i class="icon-arrow"></i>
                                         </div>
                                     </div>
                                 </a>
@@ -383,6 +383,8 @@
 
                                 </ul>
                             </li>
+
+
                             <li>
                                 <a href="javascript:void(0)">
                                     <div class="item-content">
@@ -839,7 +841,7 @@
                 Main.init();
                 Index.init();
                 FormElements.init();
-                Calendar.init();
+                //Calendar.init();
             });
 
         </script>

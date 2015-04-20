@@ -346,7 +346,7 @@
                                             <i class="ti-layers-alt"></i>
                                         </div>
                                         <div class="item-inner">
-                                            <span class="title"> Tenders </span><i class="icon-arrow"></i>
+                                            <span class="title">Tenders </span><i class="icon-arrow"></i>
                                         </div>
                                     </div>
                                 </a>
@@ -383,6 +383,8 @@
 
                                 </ul>
                             </li>
+
+
                             <li>
                                 <a href="javascript:void(0)">
                                     <div class="item-content">
@@ -839,7 +841,7 @@
                 Main.init();
                 Index.init();
                 FormElements.init();
-                Calendar.init();
+                //Calendar.init();
             });
 
         </script>

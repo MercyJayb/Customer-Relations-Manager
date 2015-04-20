@@ -3,7 +3,11 @@
 use CRM\ClientService;
 use CRM\Http\Requests;
 use CRM\Client;
+use CRM\Invoice;
+use CRM\Invoice_Records;
 use CRM\Service;
+
+use Carbon\Carbon;
 
 use CRM\Http\Controllers\Controller;
 
@@ -61,6 +65,17 @@ class ClientServiceController extends Controller {
 
 		$client->client_service()->create($request);
 
+        //Generate an invoice
+        Invoice_Records::create([
+            'invoice_id' => 8212,
+            'client_service_id' => \DB::getPdo()->lastInsertId(),
+            'client_id' => $client->id,
+            'total' => $request['cost'],
+            'tax' => 16,
+            'tax_details' => 'VAT',
+            'due_date' => $request['start_date']
+        ]);
+
         return redirect('clients/'.$client->id)->with('success','Service Added Successfully');
 	}
 
@@ -108,6 +123,12 @@ class ClientServiceController extends Controller {
 	public function update(ClientService $service, ClientServiceRequest $request)
 	{
 		$service->update($request->all());
+
+        //Generate an invoice
+        Invoice_Records::where('client_service_id', $service->id)->update([
+            'total' => $request->cost,
+            'due_date' => $request->start_date
+        ]);
 
         return redirect('clients/'.$service->client->id)->with('success','Client Service Updated successfully');
 	}

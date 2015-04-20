@@ -27,4 +27,9 @@
     {!!Form::select('frequency', [''=>'Select Frequency'] + $frequency, Input::old('frequency'), array("class"=>"form-control") ) !!}
 </div>
 
+<div class="form-group {!! ($errors->has('start_date')) ? "has-error" : ""  !!}">
+{!!Form::label('start_date','Start Date:') !!}
+{!!Form::input('date','start_date', date('Y-m-d'), array("class"=>"form-control", 'placeholder'=>'cost') ) !!}
+</div>
+
 {!!Form::submit($btnText, array('class'=>'btn btn-primary')) !!}

@@ -41,6 +41,12 @@
                 {!!Form::select('frequency', [''=>'Select Frequency'] + $frequency, Input::old('frequency'), array("class"=>"form-control") ) !!}
             </div>
 
+            <div class="form-group {!! ($errors->has('start_date')) ? "has-error" : ""  !!}">
+            {!!Form::label('start_date','Start Date:') !!}
+            {!!Form::input('date','start_date', Carbon\Carbon::parse($clientservice->start_date)->format('Y-m-d'), array("class"=>"form-control", 'placeholder'=>'cost') ) !!}
+            </div>
+
+
             {!!Form::submit("Update Service", array('class'=>'btn btn-primary')) !!}
 
 

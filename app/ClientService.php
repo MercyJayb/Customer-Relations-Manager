@@ -3,13 +3,21 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Carbon\Carbon;
+
 class ClientService extends Model {
 
 	use SoftDeletes;
 
     protected  $table = 'client_services';
 
-    protected $fillable = ['client_id', 'service_id', 'cost', 'frequency'];
+    protected $fillable = ['client_id', 'service_id', 'cost', 'frequency', 'start_date'];
+
+    public function getDates()
+    {
+        return ['start_date'];
+    }
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -14,8 +14,13 @@ class CreateFakeTendersTable extends Migration {
 	{
 		Schema::create('fake_tenders', function(Blueprint $table)
 		{
-			$table->increments('id');
-			$table->timestamps();
+            $table->increments('id');
+            $table->unsignedInteger('client');
+            $table->string('title');
+            $table->text('description');
+            $table->datetime('start_date');
+            $table->softDeletes();
+            $table->timestamps();
 		});
 	}
 
