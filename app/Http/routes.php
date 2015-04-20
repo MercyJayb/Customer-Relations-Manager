@@ -42,118 +42,17 @@ get('stop', function(){
 
 get('pdf/{invoice_id}', function($invoice_id){
 
-    $invoice = CRM\Invoice_Records::where('invoice_id', $invoice_id)->get();
-    $bag = CRM\Invoice_Records::where('invoice_id', $invoice_id)->first();
+    $factory = [
 
-    $logo = URL::asset('assets/images/invoicelogo.png');
-    $css = URL::asset('assets/css/invoice/styles.css');
+        'items' => CRM\Invoice_Records::where('invoice_id', $invoice_id)->get(),
 
-    $date = Carbon\Carbon::parse($bag->created_at)->format('F d, Y');
-
-    $due_date = Carbon\Carbon::parse($bag->due_date)->format('m/d/Y');
+        'bag' => CRM\Invoice_Records::where('invoice_id', $invoice_id)->first()
+    ];
 
 
+    $invoice = PDF::loadView('invoices.pdf2', $factory);
 
-
-
-    $data = "
-<!DOCTYPE html>
-<html lang='en'>
-  <head>
-    <meta charset='utf-8'>
-    <link rel='stylesheet' href=$css media='all' />
-  </head>
-  <body>
-    <header class='clearfix'>
-      <div id='logo'>
-        <img src=$logo>
-      </div>
-
-      <div id='company' class='clearfix'>
-        <div>Date: $date</div>
-        <div>Invoice #: $invoice_id</div>
-
-      </div>
-      <div id='project'>
-        <div>Africa Blue Webs</div>
-        <div>'We Develop Your Dream'</div>
-      </div>
-       <div id='project'>
-        <div>To: {$bag->client->company}</div>
-        <div>&nbsp;&nbsp;&nbsp;&nbsp;{$bag->client->company}</div>
-      </div>
-    </header>
-    <main>
-    <table>
-        <thead>
-          <tr>
-            <th class='service'>Salesperson</th>
-            <th class='desc'>Payment Terms</th>
-            <th>Due Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class='service'>Tuva Adams Tuva</td>
-            <td class='desc'>Due upon Receipt</td>
-            <td class='unit'>{$due_date}</td>
-          </tr>
-          </tbody>
-    </table>
-    <br><br>
-    <table>
-        <thead>
-          <tr>
-            <th class='service'>Qty</th>
-            <th class='desc'>Description</th>
-            <th></th>
-            <th>Unit Price</th>
-            <th>Line Total</th>
-          </tr>
-        </thead>
-        <tbody>
-
-            <tr>
-            <td class='service'>1</td>
-            <td class='desc'>Test service</td>
-            <td class='unit'></td>
-            <td class='qty'>1000</td>
-            <td class='total'>1000</td>
-          </tr>
-        <tr>
-            <td colspan='4'>SUBTOTAL</td>
-            <td class='total'>1000.00</td>
-          </tr>
-          <tr>
-            <td colspan='4'>TAX 16%</td>
-            <td class='total'>$1,300.00</td>
-          </tr>
-          <tr>
-            <td colspan='4' class='grand total'>GRAND TOTAL</td>
-            <td class='grand total'>6,500.00</td>
-          </tr>
-        </tbody>
-      </table>
-      <div id='notices'>
-        <div>NOTICE:</div>
-        <div class='notice'>Make all checks payable to Africa Blue Webs <br>
-                Thank you for your business! <br>
-            </div>
-      </div>
-    </main>
-    <footer>
-                Luther Plaza, 4th Fl. P.O. Box 26194 - 00100 Nairobi., Tel: +254 (20) 2345 229, +254 (735) 874816, +254 (787) 355336
-    </footer>
-  </body>
-</html>
-";
-
-
-    $pdf = \PDF::loadHTML($data);
-
-    return $pdf->stream();
-
-
+    return $invoice->stream();
 
 });
 
