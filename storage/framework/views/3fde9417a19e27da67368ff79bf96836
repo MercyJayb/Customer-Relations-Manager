@@ -111,13 +111,13 @@
                                             <strong>Discount:</strong> <input type="text" size="6" name="discount" id="discount" value="<?php echo e($data->discount); ?>">
                                         </li>
                                         <li>
-                                            <span style="margin: 0px;padding: 0px;"> <strong>Include VAT (16%)</strong> <input type="checkbox" name="tax" value="<?php echo e(0.16 * $subtotal); ?>" id="vat"></span>
+                                            <span style="margin: 0px;padding: 0px;"> <strong>Include VAT (16%)</strong> <input type="checkbox" <?php if($data->tax > 0): ?> checked <?php endif; ?> name="tax" value="<?php echo e(0.16 * $subtotal); ?>" id="vat"></span>
                                         </li>
                                         <?php $tax = ($data->tax != NULL) ? $data->tax : 0 ; ?>
                                         <?php $disc = ($data->discount != NULL) ? $data->discount : 0 ; ?>
 
                                         <li class="text-extra-large text-dark margin-top-15">
-                                            <strong>Total:</strong> Kshs. <?php echo e($subtotal - $disc - $tax); ?>
+                                            <strong>Total:</strong> Kshs. <?php echo e($subtotal - $disc + $tax); ?>
 
                                         </li>
                                     </ul>

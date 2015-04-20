@@ -103,13 +103,13 @@
                                             <strong>Discount:</strong> <input type="text" size="6" name="discount" id="discount" value="{{ $data->discount }}">
                                         </li>
                                         <li>
-                                            <span style="margin: 0px;padding: 0px;"> <strong>Include VAT (16%)</strong> <input type="checkbox" name="tax" value="{{ 0.16 * $subtotal }}" id="vat"></span>
+                                            <span style="margin: 0px;padding: 0px;"> <strong>Include VAT (16%)</strong> <input type="checkbox" @if($data->tax > 0) checked @endif name="tax" value="{{ 0.16 * $subtotal }}" id="vat"></span>
                                         </li>
                                         <?php $tax = ($data->tax != NULL) ? $data->tax : 0 ; ?>
                                         <?php $disc = ($data->discount != NULL) ? $data->discount : 0 ; ?>
 
                                         <li class="text-extra-large text-dark margin-top-15">
-                                            <strong>Total:</strong> Kshs. {{ $subtotal - $disc - $tax }}
+                                            <strong>Total:</strong> Kshs. {{ $subtotal - $disc + $tax }}
                                         </li>
                                     </ul>
                                     <br>

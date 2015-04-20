@@ -52,24 +52,33 @@
 
         <?php $subtotal = number_format(array_sum($costs), 2) ?>
 
+        <?php $tax = ($bag->tax != NULL) ? $bag->tax : 0 ; ?>
+        <?php $disc = ($bag->discount != NULL) ? $bag->discount : 0 ; ?>
+
         <tr>
             <td colspan="4">SUBTOTAL</td>
             <td class="total"><?php echo e($subtotal); ?></td>
         </tr>
+
+        <?php if($bag->discount != NULL): ?>
         <tr>
             <td colspan="4">DISCOUNT</td>
-            <?php $discount = $bag->discount ?>
-            <td class="total"><?php echo e($discount); ?></td>
+            <td class="total"><?php echo e($disc); ?></td>
         </tr>
+        <?php endif; ?>
+
+        <?php if($bag->tax != NULL): ?>
         <tr>
             <td colspan="4">TAX 16%</td>
-            <?php $tax = 0.16 * $subtotal ?>
             <td class="total"><?php echo e($tax); ?></td>
         </tr>
+        <?php endif; ?>
+
         <tr>
             <td colspan="4" class="grand total">GRAND TOTAL</td>
-            <?php $grand_total = $subtotal + $discount - $tax ?>
-            <td class="grand total">Ksh. <?php echo e($grand_total); ?></td>
+            <?php $grand_total = $subtotal - $disc ?>
+            <?php $grand_total = $grand_total + $tax ?>
+            <td class="grand total">Ksh. <?php echo e(number_format($grand_total, 2)); ?></td>
         </tr>
         </tbody>
     </table>

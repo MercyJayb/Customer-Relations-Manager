@@ -76,7 +76,8 @@
 
         <tr>
             <td colspan="4" class="grand total">GRAND TOTAL</td>
-            <?php $grand_total = $subtotal - $disc - $tax ?>
+            <?php $grand_total = $subtotal - $disc ?>
+            <?php $grand_total = $grand_total + $tax ?>
             <td class="grand total">Ksh. {{ number_format($grand_total, 2) }}</td>
         </tr>
         </tbody>
