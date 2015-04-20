@@ -88,7 +88,7 @@
                                         <?php foreach($invoice as $e): ?>
                                             <tr>
                                                 <td> <?php echo e($a++); ?> </td>
-                                                <td> <?php echo e($e->client_service_id); ?> </td>
+                                                <td> <?php echo e($e->client_service->service->name); ?> </td>
                                                 <td class="hidden-480"> <?php echo e($e->total); ?> </td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -101,28 +101,35 @@
                                 <div class="col-sm-12 invoice-block">
                                     <ul class="list-unstyled amounts text-small">
                                         <li>
-                                            <strong>Sub-Total:</strong> <?php echo e($subtotal); ?>
+                                            <strong>Sub-Total:</strong> Kshs. <?php echo e($subtotal); ?>
 
                                             <input type="hidden" id="subtotal" value="<?php echo e($subtotal); ?>">
                                         </li>
+                                        <?php echo Form::model($data, ['method'=>'PUT', 'url'=> 'updateinvoice/'.$data->invoice_id]); ?>
+
                                         <li>
-                                            <strong>Discount:</strong> <input type="text" size="6" id="discount">
+                                            <strong>Discount:</strong> <input type="text" size="6" name="discount" id="discount" value="<?php echo e($data->discount); ?>">
                                         </li>
                                         <li>
-                                            <span style="margin: 0px;padding: 0px;"> <strong>Include VAT (16%)</strong> <input type="checkbox" value="<?php echo e(0.16 * $subtotal); ?>" id="vat"></span>
+                                            <span style="margin: 0px;padding: 0px;"> <strong>Include VAT (16%)</strong> <input type="checkbox" name="tax" value="<?php echo e(0.16 * $subtotal); ?>" id="vat"></span>
                                         </li>
+                                        <?php $tax = ($data->tax != NULL) ? $data->tax : 0 ; ?>
+                                        <?php $disc = ($data->discount != NULL) ? $data->discount : 0 ; ?>
+
                                         <li class="text-extra-large text-dark margin-top-15">
-                                            <strong>Total:</strong> <span class="total"></span>
+                                            <strong>Total:</strong> Kshs. <?php echo e($subtotal - $disc - $tax); ?>
+
                                         </li>
                                     </ul>
                                     <br>
-                                    <?php /*onclick="javascript:window.print();"*/ ?>
-                                    <?php /*<a  class="btn btn-lg btn-primary hidden-print">*/ ?>
-                                        <?php /*Print <i class="fa fa-print"></i>*/ ?>
-                                    <?php /*</a>*/ ?>
-                                    <a class="btn btn-lg btn-primary btn-o hidden-print">
-                                        Save and Download PDF <i class="fa fa-check"></i>
+                                    <a href="<?php echo e(URL::to('pdf/'.$data->invoice_id)); ?>" class="btn btn-lg btn-primary hidden-print">
+                                        Print <i class="fa fa-print"></i>
                                     </a>
+                                    <button type="submit" class="btn btn-lg btn-primary btn-o hidden-print">
+                                        Save
+                                    </button>
+                                    <?php echo Form::close(); ?>
+
                                 </div>
                             </div>
                         </div>
@@ -138,27 +145,27 @@
 <?php $__env->startSection('formjs'); ?>
     <script>
 
-        var discount = 0;
-        var subtotal = $('#subtotal').val();
-        var vat = 0;
-        var total = subtotal;
-        $('.total').html(total);
-
-
-        function triggerChange(){
-            $("#vat").trigger("change");
-        }
-
-        $("#vat").change(function() {
-            var vat = $(this).val();
-            var newtotal =  parseInt(vat) + parseInt(total);
-            $('.total').html(newtotal);
-        });
-
-        // I have no idea what I am doing here
-        $('#vat').click(function(e){
-            if($("#vat").prop('checked')){ triggerChange(); }
-        });
+//        var discount = 0;
+//        var subtotal = $('#subtotal').val();
+//        var vat = 0;
+//        var total = subtotal;
+//        $('.total').html(total);
+//
+//
+//        function triggerChange(){
+//            $("#vat").trigger("change");
+//        }
+//
+//        $("#vat").change(function() {
+//            var vat = $(this).val();
+//            var newtotal =  parseInt(vat) + parseInt(total);
+//            $('.total').html(newtotal);
+//        });
+//
+//        // I have no idea what I am doing here
+//        $('#vat').click(function(e){
+//            if($("#vat").prop('checked')){ triggerChange(); }
+//        });
 
     </script>
 <?php $__env->stopSection(); ?>

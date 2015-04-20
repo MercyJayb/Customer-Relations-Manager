@@ -67,6 +67,8 @@ get('invoices-all','Invoice_RecordsController@all');
 
 get('inv/{id}', 'Invoice_RecordsController@show');
 
+put('updateinvoice/{id}', 'Invoice_RecordsController@updateInvoice');
+
 //Fake Tenders
 get('faketenders-all','FakeTendersController@all');
 

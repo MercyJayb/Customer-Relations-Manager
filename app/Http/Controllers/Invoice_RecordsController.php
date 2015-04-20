@@ -4,6 +4,7 @@ use CRM\Http\Requests;
 use CRM\Http\Controllers\Controller;
 
 use CRM\Invoice_Records;
+use Input;
 use CRM\Client;
 
 use CRM\Http\Requests\Invoice_RecordsRequest;
@@ -143,6 +144,18 @@ class Invoice_RecordsController extends Controller {
         $subtitle = "display an invoice record";
 
         return view('invoices.show', compact('invoice', 'title','subtitle', 'data', 'subtotal'));
+    }
+
+    public function updateInvoice($id)
+    {
+        $data = Input::except('_method', '_token');
+        $tax = (Input::has('tax')) ? Input::get('tax') : 0 ;
+
+        $data['tax'] = $tax;
+
+        Invoice_Records::where('invoice_id', $id)->update($data);
+
+        return redirect('inv/'.$id);
     }
 
     /**

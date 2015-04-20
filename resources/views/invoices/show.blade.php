@@ -82,7 +82,7 @@
                                         @foreach($invoice as $e)
                                             <tr>
                                                 <td> {{ $a++ }} </td>
-                                                <td> {{ $e->client_service_id }} </td>
+                                                <td> {{ $e->client_service->service->name }} </td>
                                                 <td class="hidden-480"> {{ $e->total }} </td>
                                             </tr>
                                         @endforeach
@@ -95,27 +95,31 @@
                                 <div class="col-sm-12 invoice-block">
                                     <ul class="list-unstyled amounts text-small">
                                         <li>
-                                            <strong>Sub-Total:</strong> {{ $subtotal }}
+                                            <strong>Sub-Total:</strong> Kshs. {{ $subtotal }}
                                             <input type="hidden" id="subtotal" value="{{ $subtotal }}">
                                         </li>
+                                        {!! Form::model($data, ['method'=>'PUT', 'url'=> 'updateinvoice/'.$data->invoice_id]) !!}
                                         <li>
-                                            <strong>Discount:</strong> <input type="text" size="6" id="discount">
+                                            <strong>Discount:</strong> <input type="text" size="6" name="discount" id="discount" value="{{ $data->discount }}">
                                         </li>
                                         <li>
-                                            <span style="margin: 0px;padding: 0px;"> <strong>Include VAT (16%)</strong> <input type="checkbox" value="{{ 0.16 * $subtotal }}" id="vat"></span>
+                                            <span style="margin: 0px;padding: 0px;"> <strong>Include VAT (16%)</strong> <input type="checkbox" name="tax" value="{{ 0.16 * $subtotal }}" id="vat"></span>
                                         </li>
+                                        <?php $tax = ($data->tax != NULL) ? $data->tax : 0 ; ?>
+                                        <?php $disc = ($data->discount != NULL) ? $data->discount : 0 ; ?>
+
                                         <li class="text-extra-large text-dark margin-top-15">
-                                            <strong>Total:</strong> <span class="total"></span>
+                                            <strong>Total:</strong> Kshs. {{ $subtotal - $disc - $tax }}
                                         </li>
                                     </ul>
                                     <br>
-                                    {{--onclick="javascript:window.print();"--}}
-                                    {{--<a  class="btn btn-lg btn-primary hidden-print">--}}
-                                        {{--Print <i class="fa fa-print"></i>--}}
-                                    {{--</a>--}}
-                                    <a class="btn btn-lg btn-primary btn-o hidden-print">
-                                        Save and Download PDF <i class="fa fa-check"></i>
+                                    <a href="{{ URL::to('pdf/'.$data->invoice_id) }}" class="btn btn-lg btn-primary hidden-print">
+                                        Print <i class="fa fa-print"></i>
                                     </a>
+                                    <button type="submit" class="btn btn-lg btn-primary btn-o hidden-print">
+                                        Save
+                                    </button>
+                                    {!! Form::close() !!}
                                 </div>
                             </div>
                         </div>
@@ -131,27 +135,27 @@
 @section('formjs')
     <script>
 
-        var discount = 0;
-        var subtotal = $('#subtotal').val();
-        var vat = 0;
-        var total = subtotal;
-        $('.total').html(total);
-
-
-        function triggerChange(){
-            $("#vat").trigger("change");
-        }
-
-        $("#vat").change(function() {
-            var vat = $(this).val();
-            var newtotal =  parseInt(vat) + parseInt(total);
-            $('.total').html(newtotal);
-        });
-
-        // I have no idea what I am doing here
-        $('#vat').click(function(e){
-            if($("#vat").prop('checked')){ triggerChange(); }
-        });
+//        var discount = 0;
+//        var subtotal = $('#subtotal').val();
+//        var vat = 0;
+//        var total = subtotal;
+//        $('.total').html(total);
+//
+//
+//        function triggerChange(){
+//            $("#vat").trigger("change");
+//        }
+//
+//        $("#vat").change(function() {
+//            var vat = $(this).val();
+//            var newtotal =  parseInt(vat) + parseInt(total);
+//            $('.total').html(newtotal);
+//        });
+//
+//        // I have no idea what I am doing here
+//        $('#vat').click(function(e){
+//            if($("#vat").prop('checked')){ triggerChange(); }
+//        });
 
     </script>
 @stop
