@@ -24,17 +24,19 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
                     </tr>
                     </thead>
                     <tbody>
+
+                    <?php $total = []; ?>
 
                     <?php foreach($overdueinvoices as $invoice): ?>
                         <tr>
                             <td class="hidden-xs"><a href="<?php echo e(URL::to('inv/'.$invoice->invoice_id)); ?>"><?php echo e($invoice->invoice_id); ?></a></td>
                             <td><?php echo e($invoice->client->fullnameAndCompany); ?></td>
-                            <td><?php echo e($invoice->total); ?></td>
+                            <td><?php echo e($total[] = $invoice->total); ?></td>
                             <td><?php echo e(Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y')); ?></td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
@@ -48,29 +50,29 @@
 
                                 </div>
                             </td>
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                <?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>
-
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                <?php echo Form::hidden('_method', 'DELETE'); ?>
-
-                                <?php echo Form::close(); ?>
-
-                            </td>
+                            <?php /*<td class="center">*/ ?>
+                                <?php /*<div class="visible-md visible-lg hidden-sm hidden-xs">*/ ?>
+                                    <?php /*<a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*</td>*/ ?>
+                            <?php /*<td>*/ ?>
+                                <?php /*<?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>*/ ?>
+                                <?php /*<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>*/ ?>
+                                <?php /*<?php echo Form::hidden('_method', 'DELETE'); ?>*/ ?>
+                                <?php /*<?php echo Form::close(); ?>*/ ?>
+                            <?php /*</td>*/ ?>
                         </tr>
                     <?php endforeach; ?>
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. <?php echo e(number_format(CRM\Invoice_Records::overdue()->sum('total'), 2)); ?></u></h4>
             </div>
         </div>
 
-        <?php /*End OverDue invoices*/ ?>
-        <?php /*Start Today invoices*/ ?>
+        <?php /*End OverDue invoices--}
+        }
+        {{--Start Today invoices*/ ?>
         <h4>Today's Invoices</h4>
         <div class="panel panel-white">
 
@@ -84,11 +86,13 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
+
 
                     <?php foreach($todayinvoices as $invoice): ?>
                         <tr>
@@ -109,24 +113,23 @@
 
                                 </div>
                             </td>
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                <?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>
-
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                <?php echo Form::hidden('_method', 'DELETE'); ?>
-
-                                <?php echo Form::close(); ?>
-
-                            </td>
+                            <?php /*<td class="center">*/ ?>
+                                <?php /*<div class="visible-md visible-lg hidden-sm hidden-xs">*/ ?>
+                                    <?php /*<a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*</td>*/ ?>
+                            <?php /*<td>*/ ?>
+                                <?php /*<?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>*/ ?>
+                                <?php /*<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>*/ ?>
+                                <?php /*<?php echo Form::hidden('_method', 'DELETE'); ?>*/ ?>
+                                <?php /*<?php echo Form::close(); ?>*/ ?>
+                            <?php /*</td>*/ ?>
                         </tr>
                     <?php endforeach; ?>
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. <?php echo e(number_format(CRM\Invoice_Records::today()->sum('total'), 2)); ?></u></h4>
             </div>
         </div>
 
@@ -145,11 +148,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     <?php foreach($tomorrowinvoices as $invoice): ?>
                         <tr>
@@ -170,24 +174,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                <?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>
-
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                <?php echo Form::hidden('_method', 'DELETE'); ?>
-
-                                <?php echo Form::close(); ?>
-
-                            </td>
+                            <?php /*<td class="center">*/ ?>
+                                <?php /*<div class="visible-md visible-lg hidden-sm hidden-xs">*/ ?>
+                                    <?php /*<a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*</td>*/ ?>
+                            <?php /*<td>*/ ?>
+                                <?php /*<?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>*/ ?>
+                                <?php /*<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>*/ ?>
+                                <?php /*<?php echo Form::hidden('_method', 'DELETE'); ?>*/ ?>
+                                <?php /*<?php echo Form::close(); ?>*/ ?>
+                            <?php /*</td>*/ ?>
                         </tr>
                     <?php endforeach; ?>
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. <?php echo e(number_format(CRM\Invoice_Records::tomorrow()->sum('total'), 2)); ?></u></h4>
             </div>
         </div>
 
@@ -206,11 +209,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     <?php foreach($thisweekinvoices as $invoice): ?>
                         <tr>
@@ -231,24 +235,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                <?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>
-
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                <?php echo Form::hidden('_method', 'DELETE'); ?>
-
-                                <?php echo Form::close(); ?>
-
-                            </td>
+                            <?php /*<td class="center">*/ ?>
+                                <?php /*<div class="visible-md visible-lg hidden-sm hidden-xs">*/ ?>
+                                    <?php /*<a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*</td>*/ ?>
+                            <?php /*<td>*/ ?>
+                                <?php /*<?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>*/ ?>
+                                <?php /*<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>*/ ?>
+                                <?php /*<?php echo Form::hidden('_method', 'DELETE'); ?>*/ ?>
+                                <?php /*<?php echo Form::close(); ?>*/ ?>
+                            <?php /*</td>*/ ?>
                         </tr>
                     <?php endforeach; ?>
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. <?php echo e(number_format(CRM\Invoice_Records::thisWeek()->sum('total'), 2)); ?></u></h4>
             </div>
         </div>
 
@@ -267,11 +270,13 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
+
                     <?php foreach($nextweekinvoices as $invoice): ?>
                         <tr>
                             <td class="hidden-xs"><a href="<?php echo e(URL::to('inv/'.$invoice->invoice_id)); ?>"><?php echo e($invoice->invoice_id); ?></a></td>
@@ -291,24 +296,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                <?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>
-
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                <?php echo Form::hidden('_method', 'DELETE'); ?>
-
-                                <?php echo Form::close(); ?>
-
-                            </td>
+                            <?php /*<td class="center">*/ ?>
+                                <?php /*<div class="visible-md visible-lg hidden-sm hidden-xs">*/ ?>
+                                    <?php /*<a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*</td>*/ ?>
+                            <?php /*<td>*/ ?>
+                                <?php /*<?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>*/ ?>
+                                <?php /*<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>*/ ?>
+                                <?php /*<?php echo Form::hidden('_method', 'DELETE'); ?>*/ ?>
+                                <?php /*<?php echo Form::close(); ?>*/ ?>
+                            <?php /*</td>*/ ?>
                         </tr>
                     <?php endforeach; ?>
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. <?php echo e(number_format(CRM\Invoice_Records::nextWeek()->sum('total'), 2)); ?></u></h4>
             </div>
         </div>
 
@@ -328,11 +332,12 @@
                         <th style="width:217px;">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     <?php foreach($thismonthinvoices as $invoice): ?>
                         <tr>
@@ -352,24 +357,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                <?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>
-
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                <?php echo Form::hidden('_method', 'DELETE'); ?>
-
-                                <?php echo Form::close(); ?>
-
-                            </td>
+                            <?php /*<td class="center">*/ ?>
+                                <?php /*<div class="visible-md visible-lg hidden-sm hidden-xs">*/ ?>
+                                    <?php /*<a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*</td>*/ ?>
+                            <?php /*<td>*/ ?>
+                                <?php /*<?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>*/ ?>
+                                <?php /*<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>*/ ?>
+                                <?php /*<?php echo Form::hidden('_method', 'DELETE'); ?>*/ ?>
+                                <?php /*<?php echo Form::close(); ?>*/ ?>
+                            <?php /*</td>*/ ?>
                         </tr>
                     <?php endforeach; ?>
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. <?php echo e(number_format(CRM\Invoice_Records::thisMonth()->sum('total'), 2)); ?></u></h4>
             </div>
         </div>
 
@@ -388,11 +392,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     <?php foreach($nextmonthinvoices as $invoice): ?>
                         <tr>
@@ -412,24 +417,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                <?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>
-
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                <?php echo Form::hidden('_method', 'DELETE'); ?>
-
-                                <?php echo Form::close(); ?>
-
-                            </td>
+                            <?php /*<td class="center">*/ ?>
+                                <?php /*<div class="visible-md visible-lg hidden-sm hidden-xs">*/ ?>
+                                    <?php /*<a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*</td>*/ ?>
+                            <?php /*<td>*/ ?>
+                                <?php /*<?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>*/ ?>
+                                <?php /*<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>*/ ?>
+                                <?php /*<?php echo Form::hidden('_method', 'DELETE'); ?>*/ ?>
+                                <?php /*<?php echo Form::close(); ?>*/ ?>
+                            <?php /*</td>*/ ?>
                         </tr>
                     <?php endforeach; ?>
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. <?php echo e(number_format(CRM\Invoice_Records::nextMonth()->sum('total'), 2)); ?></u></h4>
             </div>
         </div>
 
@@ -448,11 +452,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     <?php foreach($nexttwomonthsinvoices as $invoice): ?>
                         <tr>
@@ -473,24 +478,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                <?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>
-
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                <?php echo Form::hidden('_method', 'DELETE'); ?>
-
-                                <?php echo Form::close(); ?>
-
-                            </td>
+                            <?php /*<td class="center">*/ ?>
+                                <?php /*<div class="visible-md visible-lg hidden-sm hidden-xs">*/ ?>
+                                    <?php /*<a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*</td>*/ ?>
+                            <?php /*<td>*/ ?>
+                                <?php /*<?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>*/ ?>
+                                <?php /*<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>*/ ?>
+                                <?php /*<?php echo Form::hidden('_method', 'DELETE'); ?>*/ ?>
+                                <?php /*<?php echo Form::close(); ?>*/ ?>
+                            <?php /*</td>*/ ?>
                         </tr>
                     <?php endforeach; ?>
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. <?php echo e(number_format(CRM\Invoice_Records::nextTwoMonths()->sum('total'), 2)); ?></u></h4>
             </div>
         </div>
 
@@ -510,11 +514,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     <?php foreach($nextthreemonthsinvoices as $invoice): ?>
                         <tr>
@@ -535,24 +540,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                <?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>
-
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                <?php echo Form::hidden('_method', 'DELETE'); ?>
-
-                                <?php echo Form::close(); ?>
-
-                            </td>
+                            <?php /*<td class="center">*/ ?>
+                                <?php /*<div class="visible-md visible-lg hidden-sm hidden-xs">*/ ?>
+                                    <?php /*<a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*</td>*/ ?>
+                            <?php /*<td>*/ ?>
+                                <?php /*<?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>*/ ?>
+                                <?php /*<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>*/ ?>
+                                <?php /*<?php echo Form::hidden('_method', 'DELETE'); ?>*/ ?>
+                                <?php /*<?php echo Form::close(); ?>*/ ?>
+                            <?php /*</td>*/ ?>
                         </tr>
                     <?php endforeach; ?>
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. <?php echo e(number_format(CRM\Invoice_Records::nextThreeMonths()->sum('total'), 2)); ?></u></h4>
             </div>
         </div>
 
@@ -572,11 +576,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     <?php foreach($nextfourmonthsinvoices as $invoice): ?>
                         <tr>
@@ -597,24 +602,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                <?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>
-
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                <?php echo Form::hidden('_method', 'DELETE'); ?>
-
-                                <?php echo Form::close(); ?>
-
-                            </td>
+                            <?php /*<td class="center">*/ ?>
+                                <?php /*<div class="visible-md visible-lg hidden-sm hidden-xs">*/ ?>
+                                    <?php /*<a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*</td>*/ ?>
+                            <?php /*<td>*/ ?>
+                                <?php /*<?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>*/ ?>
+                                <?php /*<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>*/ ?>
+                                <?php /*<?php echo Form::hidden('_method', 'DELETE'); ?>*/ ?>
+                                <?php /*<?php echo Form::close(); ?>*/ ?>
+                            <?php /*</td>*/ ?>
                         </tr>
                     <?php endforeach; ?>
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. <?php echo e(number_format(CRM\Invoice_Records::nextFourMonths()->sum('total'), 2)); ?></u></h4>
             </div>
         </div>
 
@@ -634,11 +638,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     <?php foreach($nextfivemonthsinvoices as $invoice): ?>
                         <tr>
@@ -659,24 +664,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                <?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>
-
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                <?php echo Form::hidden('_method', 'DELETE'); ?>
-
-                                <?php echo Form::close(); ?>
-
-                            </td>
+                            <?php /*<td class="center">*/ ?>
+                                <?php /*<div class="visible-md visible-lg hidden-sm hidden-xs">*/ ?>
+                                    <?php /*<a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*</td>*/ ?>
+                            <?php /*<td>*/ ?>
+                                <?php /*<?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>*/ ?>
+                                <?php /*<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>*/ ?>
+                                <?php /*<?php echo Form::hidden('_method', 'DELETE'); ?>*/ ?>
+                                <?php /*<?php echo Form::close(); ?>*/ ?>
+                            <?php /*</td>*/ ?>
                         </tr>
                     <?php endforeach; ?>
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. <?php echo e(number_format(CRM\Invoice_Records::nextFiveMonths()->sum('total'), 2)); ?></u></h4>
             </div>
         </div>
 
@@ -696,11 +700,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     <?php foreach($nextsixmonthsinvoices as $invoice): ?>
                         <tr>
@@ -721,24 +726,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                <?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>
-
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                <?php echo Form::hidden('_method', 'DELETE'); ?>
-
-                                <?php echo Form::close(); ?>
-
-                            </td>
+                            <?php /*<td class="center">*/ ?>
+                                <?php /*<div class="visible-md visible-lg hidden-sm hidden-xs">*/ ?>
+                                    <?php /*<a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*</td>*/ ?>
+                            <?php /*<td>*/ ?>
+                                <?php /*<?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>*/ ?>
+                                <?php /*<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>*/ ?>
+                                <?php /*<?php echo Form::hidden('_method', 'DELETE'); ?>*/ ?>
+                                <?php /*<?php echo Form::close(); ?>*/ ?>
+                            <?php /*</td>*/ ?>
                         </tr>
                     <?php endforeach; ?>
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. <?php echo e(number_format(CRM\Invoice_Records::nextSixMonths()->sum('total'), 2)); ?></u></h4>
             </div>
         </div>
 
@@ -758,11 +762,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     <?php foreach($nextsevenmonthsinvoices as $invoice): ?>
                         <tr>
@@ -783,24 +788,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                <?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>
-
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                <?php echo Form::hidden('_method', 'DELETE'); ?>
-
-                                <?php echo Form::close(); ?>
-
-                            </td>
+                            <?php /*<td class="center">*/ ?>
+                                <?php /*<div class="visible-md visible-lg hidden-sm hidden-xs">*/ ?>
+                                    <?php /*<a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*</td>*/ ?>
+                            <?php /*<td>*/ ?>
+                                <?php /*<?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>*/ ?>
+                                <?php /*<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>*/ ?>
+                                <?php /*<?php echo Form::hidden('_method', 'DELETE'); ?>*/ ?>
+                                <?php /*<?php echo Form::close(); ?>*/ ?>
+                            <?php /*</td>*/ ?>
                         </tr>
                     <?php endforeach; ?>
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. <?php echo e(number_format(CRM\Invoice_Records::nextSevenMonths()->sum('total'), 2)); ?></u></h4>
             </div>
         </div>
 
@@ -820,11 +824,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     <?php foreach($nexteightmonthsinvoices as $invoice): ?>
                         <tr>
@@ -845,24 +850,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                <?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>
-
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                <?php echo Form::hidden('_method', 'DELETE'); ?>
-
-                                <?php echo Form::close(); ?>
-
-                            </td>
+                            <?php /*<td class="center">*/ ?>
+                                <?php /*<div class="visible-md visible-lg hidden-sm hidden-xs">*/ ?>
+                                    <?php /*<a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*</td>*/ ?>
+                            <?php /*<td>*/ ?>
+                                <?php /*<?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>*/ ?>
+                                <?php /*<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>*/ ?>
+                                <?php /*<?php echo Form::hidden('_method', 'DELETE'); ?>*/ ?>
+                                <?php /*<?php echo Form::close(); ?>*/ ?>
+                            <?php /*</td>*/ ?>
                         </tr>
                     <?php endforeach; ?>
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. <?php echo e(number_format(CRM\Invoice_Records::nextEightMonths()->sum('total'), 2)); ?></u></h4>
             </div>
         </div>
 
@@ -882,11 +886,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     <?php foreach($nextninemonthsinvoices as $invoice): ?>
                         <tr>
@@ -907,24 +912,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                <?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>
-
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                <?php echo Form::hidden('_method', 'DELETE'); ?>
-
-                                <?php echo Form::close(); ?>
-
-                            </td>
+                            <?php /*<td class="center">*/ ?>
+                                <?php /*<div class="visible-md visible-lg hidden-sm hidden-xs">*/ ?>
+                                    <?php /*<a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*</td>*/ ?>
+                            <?php /*<td>*/ ?>
+                                <?php /*<?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>*/ ?>
+                                <?php /*<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>*/ ?>
+                                <?php /*<?php echo Form::hidden('_method', 'DELETE'); ?>*/ ?>
+                                <?php /*<?php echo Form::close(); ?>*/ ?>
+                            <?php /*</td>*/ ?>
                         </tr>
                     <?php endforeach; ?>
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. <?php echo e(number_format(CRM\Invoice_Records::nextNineMonths()->sum('total'), 2)); ?></u></h4>
             </div>
         </div>
 
@@ -944,11 +948,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     <?php foreach($nexttenmonthsinvoices as $invoice): ?>
                         <tr>
@@ -969,24 +974,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                <?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>
-
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                <?php echo Form::hidden('_method', 'DELETE'); ?>
-
-                                <?php echo Form::close(); ?>
-
-                            </td>
+                            <?php /*<td class="center">*/ ?>
+                                <?php /*<div class="visible-md visible-lg hidden-sm hidden-xs">*/ ?>
+                                    <?php /*<a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*</td>*/ ?>
+                            <?php /*<td>*/ ?>
+                                <?php /*<?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>*/ ?>
+                                <?php /*<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>*/ ?>
+                                <?php /*<?php echo Form::hidden('_method', 'DELETE'); ?>*/ ?>
+                                <?php /*<?php echo Form::close(); ?>*/ ?>
+                            <?php /*</td>*/ ?>
                         </tr>
                     <?php endforeach; ?>
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. <?php echo e(number_format(CRM\Invoice_Records::nextTenMonths()->sum('total'), 2)); ?></u></h4>
             </div>
         </div>
 
@@ -1006,11 +1010,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
+                        <?php /*<th style="width:1px;"></th>*/ ?>
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     <?php foreach($nextelevenmonthsinvoices as $invoice): ?>
                         <tr>
@@ -1031,24 +1036,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                <?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>
-
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                <?php echo Form::hidden('_method', 'DELETE'); ?>
-
-                                <?php echo Form::close(); ?>
-
-                            </td>
+                            <?php /*<td class="center">*/ ?>
+                                <?php /*<div class="visible-md visible-lg hidden-sm hidden-xs">*/ ?>
+                                    <?php /*<a href="<?php echo e(URL::to('inv/'.$invoice->id.'/edit')); ?>" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>*/ ?>
+                                <?php /*</div>*/ ?>
+                            <?php /*</td>*/ ?>
+                            <?php /*<td>*/ ?>
+                                <?php /*<?php echo Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))); ?>*/ ?>
+                                <?php /*<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>*/ ?>
+                                <?php /*<?php echo Form::hidden('_method', 'DELETE'); ?>*/ ?>
+                                <?php /*<?php echo Form::close(); ?>*/ ?>
+                            <?php /*</td>*/ ?>
                         </tr>
                     <?php endforeach; ?>
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. <?php echo e(number_format(CRM\Invoice_Records::nextElevenMonths()->sum('total'), 2)); ?></u></h4>
             </div>
         </div>
 

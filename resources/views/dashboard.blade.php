@@ -73,13 +73,13 @@
                                                         View revenue information for this month
                                                     </p>
                                                     <p class="text-small">
-                                                        <span style="color:black">{{ CRM\Domain::expiresThisMonth()->unpaid()->count() }} - Expired Domains</span>
+                                                        <span style="color:black">Kshs. {{ number_format(CRM\Invoice_Records::expectedThisMonth()->sum('total'), 2) }} - Total Expected</span>
                                                     </p>
                                                     <p class="text-small">
-                                                        <span style="color:black">{{ CRM\Domain::expiresThisMonth()->paid()->count() }} - Paid Domains</span>
+                                                        <span style="color:black">Kshs. {{ number_format(CRM\Invoice_Records::collectedThisMonth()->sum('total'), 2) }} - Total Collected</span>
                                                     </p>
                                                     <p class="cl-effect-1">
-                                                        <a href="{{ url('revenues') }}">
+                                                        <a href="{{ url('invoices-all') }}">
                                                             view more
                                                         </a>
                                                     </p>
@@ -96,13 +96,13 @@
                                                             View revenue information for this year.
                                                         </p>
                                                         <p class="text-small">
-                                                            <span style="color:black">{{ CRM\Domain::expiresThisYear()->unpaid()->count() }} - Expired Domains</span>
+                                                            <span style="color:black">Kshs. {{ number_format(CRM\Invoice_Records::expectedThisYear()->sum('total'), 2) }} - Total Expected</span>
                                                         </p>
                                                         <p class="text-small">
-                                                            <span style="color:black">{{ CRM\Domain::expiresThisYear()->paid()->count() }} - Paid Domains</span>
+                                                            <span style="color:black">Kshs. {{ number_format(CRM\Invoice_Records::collectedThisYear()->sum('total'), 2) }} - Total Collected</span>
                                                         </p>
                                                         <p class="cl-effect-1">
-                                                            <a href="{{ url('revenues') }}">
+                                                            <a href="{{ url('invoices-all') }}">
                                                                 view more
                                                             </a>
                                                         </p>

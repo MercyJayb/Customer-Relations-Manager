@@ -24,17 +24,19 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        {{--<th style="width:1px;"></th>--}}
+                        {{--<th style="width:1px;"></th>--}}
                     </tr>
                     </thead>
                     <tbody>
+
+                    <?php $total = []; ?>
 
                     @foreach($overdueinvoices as $invoice)
                         <tr>
                             <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
                             <td>{{ $invoice->client->fullnameAndCompany }}</td>
-                            <td>{{ $invoice->total }}</td>
+                            <td>{{ $total[] = $invoice->total }}</td>
                             <td>{{ Carbon\Carbon::parse($invoice->due_date)->format('D d M, Y') }}</td>
                             <td class="center">
                                 <div class="visible-md visible-lg hidden-sm hidden-xs">
@@ -48,25 +50,28 @@
 
                                 </div>
                             </td>
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td class="center">--}}
+                                {{--<div class="visible-md visible-lg hidden-sm hidden-xs">--}}
+                                    {{--<a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}--}}
+                                {{--<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>--}}
+                                {{--{!! Form::hidden('_method', 'DELETE') !!}--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. {{ number_format(CRM\Invoice_Records::overdue()->sum('total'), 2) }}</u></h4>
             </div>
         </div>
 
-        {{--End OverDue invoices--}}
+        {{--End OverDue invoices--}
+        }
         {{--Start Today invoices--}}
         <h4>Today's Invoices</h4>
         <div class="panel panel-white">
@@ -81,11 +86,13 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        {{--<th style="width:1px;"></th>--}}
+                        {{--<th style="width:1px;"></th>--}}
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
+
 
                     @foreach($todayinvoices as $invoice)
                         <tr>
@@ -106,21 +113,23 @@
 
                                 </div>
                             </td>
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td class="center">--}}
+                                {{--<div class="visible-md visible-lg hidden-sm hidden-xs">--}}
+                                    {{--<a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}--}}
+                                {{--<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>--}}
+                                {{--{!! Form::hidden('_method', 'DELETE') !!}--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. {{ number_format(CRM\Invoice_Records::today()->sum('total'), 2) }}</u></h4>
             </div>
         </div>
 
@@ -139,11 +148,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        {{--<th style="width:1px;"></th>--}}
+                        {{--<th style="width:1px;"></th>--}}
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     @foreach($tomorrowinvoices as $invoice)
                         <tr>
@@ -164,21 +174,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td class="center">--}}
+                                {{--<div class="visible-md visible-lg hidden-sm hidden-xs">--}}
+                                    {{--<a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}--}}
+                                {{--<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>--}}
+                                {{--{!! Form::hidden('_method', 'DELETE') !!}--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. {{ number_format(CRM\Invoice_Records::tomorrow()->sum('total'), 2) }}</u></h4>
             </div>
         </div>
 
@@ -197,11 +209,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        {{--<th style="width:1px;"></th>--}}
+                        {{--<th style="width:1px;"></th>--}}
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     @foreach($thisweekinvoices as $invoice)
                         <tr>
@@ -222,21 +235,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td class="center">--}}
+                                {{--<div class="visible-md visible-lg hidden-sm hidden-xs">--}}
+                                    {{--<a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}--}}
+                                {{--<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>--}}
+                                {{--{!! Form::hidden('_method', 'DELETE') !!}--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. {{ number_format(CRM\Invoice_Records::thisWeek()->sum('total'), 2) }}</u></h4>
             </div>
         </div>
 
@@ -255,11 +270,13 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        {{--<th style="width:1px;"></th>--}}
+                        {{--<th style="width:1px;"></th>--}}
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
+
                     @foreach($nextweekinvoices as $invoice)
                         <tr>
                             <td class="hidden-xs"><a href="{{URL::to('inv/'.$invoice->invoice_id)}}">{{ $invoice->invoice_id }}</a></td>
@@ -279,21 +296,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td class="center">--}}
+                                {{--<div class="visible-md visible-lg hidden-sm hidden-xs">--}}
+                                    {{--<a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}--}}
+                                {{--<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>--}}
+                                {{--{!! Form::hidden('_method', 'DELETE') !!}--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. {{ number_format(CRM\Invoice_Records::nextWeek()->sum('total'), 2) }}</u></h4>
             </div>
         </div>
 
@@ -313,11 +332,12 @@
                         <th style="width:217px;">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        {{--<th style="width:1px;"></th>--}}
+                        {{--<th style="width:1px;"></th>--}}
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     @foreach($thismonthinvoices as $invoice)
                         <tr>
@@ -337,21 +357,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td class="center">--}}
+                                {{--<div class="visible-md visible-lg hidden-sm hidden-xs">--}}
+                                    {{--<a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}--}}
+                                {{--<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>--}}
+                                {{--{!! Form::hidden('_method', 'DELETE') !!}--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. {{ number_format(CRM\Invoice_Records::thisMonth()->sum('total'), 2) }}</u></h4>
             </div>
         </div>
 
@@ -370,11 +392,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        {{--<th style="width:1px;"></th>--}}
+                        {{--<th style="width:1px;"></th>--}}
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     @foreach($nextmonthinvoices as $invoice)
                         <tr>
@@ -394,21 +417,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td class="center">--}}
+                                {{--<div class="visible-md visible-lg hidden-sm hidden-xs">--}}
+                                    {{--<a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}--}}
+                                {{--<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>--}}
+                                {{--{!! Form::hidden('_method', 'DELETE') !!}--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. {{ number_format(CRM\Invoice_Records::nextMonth()->sum('total'), 2) }}</u></h4>
             </div>
         </div>
 
@@ -427,11 +452,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        {{--<th style="width:1px;"></th>--}}
+                        {{--<th style="width:1px;"></th>--}}
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     @foreach($nexttwomonthsinvoices as $invoice)
                         <tr>
@@ -452,21 +478,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td class="center">--}}
+                                {{--<div class="visible-md visible-lg hidden-sm hidden-xs">--}}
+                                    {{--<a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}--}}
+                                {{--<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>--}}
+                                {{--{!! Form::hidden('_method', 'DELETE') !!}--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. {{ number_format(CRM\Invoice_Records::nextTwoMonths()->sum('total'), 2) }}</u></h4>
             </div>
         </div>
 
@@ -486,11 +514,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        {{--<th style="width:1px;"></th>--}}
+                        {{--<th style="width:1px;"></th>--}}
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     @foreach($nextthreemonthsinvoices as $invoice)
                         <tr>
@@ -511,21 +540,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td class="center">--}}
+                                {{--<div class="visible-md visible-lg hidden-sm hidden-xs">--}}
+                                    {{--<a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}--}}
+                                {{--<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>--}}
+                                {{--{!! Form::hidden('_method', 'DELETE') !!}--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. {{ number_format(CRM\Invoice_Records::nextThreeMonths()->sum('total'), 2) }}</u></h4>
             </div>
         </div>
 
@@ -545,11 +576,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        {{--<th style="width:1px;"></th>--}}
+                        {{--<th style="width:1px;"></th>--}}
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     @foreach($nextfourmonthsinvoices as $invoice)
                         <tr>
@@ -570,21 +602,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td class="center">--}}
+                                {{--<div class="visible-md visible-lg hidden-sm hidden-xs">--}}
+                                    {{--<a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}--}}
+                                {{--<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>--}}
+                                {{--{!! Form::hidden('_method', 'DELETE') !!}--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. {{ number_format(CRM\Invoice_Records::nextFourMonths()->sum('total'), 2) }}</u></h4>
             </div>
         </div>
 
@@ -604,11 +638,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        {{--<th style="width:1px;"></th>--}}
+                        {{--<th style="width:1px;"></th>--}}
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     @foreach($nextfivemonthsinvoices as $invoice)
                         <tr>
@@ -629,21 +664,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td class="center">--}}
+                                {{--<div class="visible-md visible-lg hidden-sm hidden-xs">--}}
+                                    {{--<a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}--}}
+                                {{--<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>--}}
+                                {{--{!! Form::hidden('_method', 'DELETE') !!}--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. {{ number_format(CRM\Invoice_Records::nextFiveMonths()->sum('total'), 2) }}</u></h4>
             </div>
         </div>
 
@@ -663,11 +700,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        {{--<th style="width:1px;"></th>--}}
+                        {{--<th style="width:1px;"></th>--}}
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     @foreach($nextsixmonthsinvoices as $invoice)
                         <tr>
@@ -688,21 +726,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td class="center">--}}
+                                {{--<div class="visible-md visible-lg hidden-sm hidden-xs">--}}
+                                    {{--<a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}--}}
+                                {{--<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>--}}
+                                {{--{!! Form::hidden('_method', 'DELETE') !!}--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. {{ number_format(CRM\Invoice_Records::nextSixMonths()->sum('total'), 2) }}</u></h4>
             </div>
         </div>
 
@@ -722,11 +762,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        {{--<th style="width:1px;"></th>--}}
+                        {{--<th style="width:1px;"></th>--}}
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     @foreach($nextsevenmonthsinvoices as $invoice)
                         <tr>
@@ -747,21 +788,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td class="center">--}}
+                                {{--<div class="visible-md visible-lg hidden-sm hidden-xs">--}}
+                                    {{--<a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}--}}
+                                {{--<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>--}}
+                                {{--{!! Form::hidden('_method', 'DELETE') !!}--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. {{ number_format(CRM\Invoice_Records::nextSevenMonths()->sum('total'), 2) }}</u></h4>
             </div>
         </div>
 
@@ -781,11 +824,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        {{--<th style="width:1px;"></th>--}}
+                        {{--<th style="width:1px;"></th>--}}
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     @foreach($nexteightmonthsinvoices as $invoice)
                         <tr>
@@ -806,21 +850,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td class="center">--}}
+                                {{--<div class="visible-md visible-lg hidden-sm hidden-xs">--}}
+                                    {{--<a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}--}}
+                                {{--<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>--}}
+                                {{--{!! Form::hidden('_method', 'DELETE') !!}--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. {{ number_format(CRM\Invoice_Records::nextEightMonths()->sum('total'), 2) }}</u></h4>
             </div>
         </div>
 
@@ -840,11 +886,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        {{--<th style="width:1px;"></th>--}}
+                        {{--<th style="width:1px;"></th>--}}
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     @foreach($nextninemonthsinvoices as $invoice)
                         <tr>
@@ -865,21 +912,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td class="center">--}}
+                                {{--<div class="visible-md visible-lg hidden-sm hidden-xs">--}}
+                                    {{--<a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}--}}
+                                {{--<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>--}}
+                                {{--{!! Form::hidden('_method', 'DELETE') !!}--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. {{ number_format(CRM\Invoice_Records::nextNineMonths()->sum('total'), 2) }}</u></h4>
             </div>
         </div>
 
@@ -899,11 +948,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        {{--<th style="width:1px;"></th>--}}
+                        {{--<th style="width:1px;"></th>--}}
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     @foreach($nexttenmonthsinvoices as $invoice)
                         <tr>
@@ -924,21 +974,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td class="center">--}}
+                                {{--<div class="visible-md visible-lg hidden-sm hidden-xs">--}}
+                                    {{--<a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}--}}
+                                {{--<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>--}}
+                                {{--{!! Form::hidden('_method', 'DELETE') !!}--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. {{ number_format(CRM\Invoice_Records::nextTenMonths()->sum('total'), 2) }}</u></h4>
             </div>
         </div>
 
@@ -958,11 +1010,12 @@
                         <th class="hidden-xs">Total</th>
                         <th style="width:217px;">Due Date</th>
                         <th style="width:113px;"></th>
-                        <th style="width:1px;"></th>
-                        <th style="width:1px;"></th>
+                        {{--<th style="width:1px;"></th>--}}
+                        {{--<th style="width:1px;"></th>--}}
                     </tr>
                     </thead>
                     <tbody>
+                    <?php $total = []; ?>
 
                     @foreach($nextelevenmonthsinvoices as $invoice)
                         <tr>
@@ -983,21 +1036,23 @@
                                 </div>
                             </td>
 
-                            <td class="center">
-                                <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                    <a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>
-                                </div>
-                            </td>
-                            <td>
-                                {!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}
-                                <button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>
-                                {!! Form::hidden('_method', 'DELETE') !!}
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td class="center">--}}
+                                {{--<div class="visible-md visible-lg hidden-sm hidden-xs">--}}
+                                    {{--<a href="{{ URL::to('inv/'.$invoice->id.'/edit') }}" class="btn btn-primary btn-xs" tooltip-placement="top" tooltip="Edit">Edit</a>--}}
+                                {{--</div>--}}
+                            {{--</td>--}}
+                            {{--<td>--}}
+                                {{--{!! Form::model($invoice ,array('style'=>'margin: 0px;', 'action'=> array('Invoice_RecordsController@destroy',$invoice->id))) !!}--}}
+                                {{--<button class = 'btn btn-danger btn-xs' type="submit"  >Delete</button>--}}
+                                {{--{!! Form::hidden('_method', 'DELETE') !!}--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                <h4 style="float: right"><u>Total: Kshs. {{ number_format(CRM\Invoice_Records::nextElevenMonths()->sum('total'), 2) }}</u></h4>
             </div>
         </div>
 

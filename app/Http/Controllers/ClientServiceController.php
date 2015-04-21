@@ -39,6 +39,7 @@ class ClientServiceController extends Controller {
         $subtitle = 'add a client service record';
 
         $frequency = [
+            0  => 'Once',
             90  => 'After 3 months',
             180 => 'After 6 Months',
             270 => 'After 9 months',
@@ -67,11 +68,10 @@ class ClientServiceController extends Controller {
 
         //Generate an invoice
         Invoice_Records::create([
-            'invoice_id' => 8212,
-            'client_service_id' => \DB::getPdo()->lastInsertId(),
+            'invoice_id' => Invoice_Records::nextInvoiceID(),
+            'client_service_id' => DB::getPdo()->lastInsertId(),
             'client_id' => $client->id,
             'total' => $request['cost'],
-            'tax' => 16,
             'tax_details' => 'VAT',
             'due_date' => $request['start_date']
         ]);
@@ -105,6 +105,7 @@ class ClientServiceController extends Controller {
         $subtitle = 'update a client service record';
 
         $frequency = [
+            0  => 'Once',
             90  => 'After 3 months',
             180 => 'After 6 Months',
             270 => 'After 9 months',

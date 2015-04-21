@@ -38,6 +38,7 @@ class ClientService extends Model {
     public static function frequency($days)
     {
         $frequency = [
+            0  => 'Once',
             90  => 'After 3 months',
             180 => 'After 6 Months',
             270 => 'After 9 months',

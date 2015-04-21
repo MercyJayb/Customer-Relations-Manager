@@ -198,16 +198,16 @@
                                 </a>
                                 <ul class="sub-menu">
 
-                                    <li>
-                                        <a href="{{ URL::to('invoices-pending') }}">
-                                            <span class="title"> Pending Invoices <span class="badge">{{ CRM\Invoice_Records::pending()->count()  }}</span> </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ URL::to('invoices-settled') }}">
-                                            <span class="title"> Settled Invoices <span class="badge">{{ CRM\Invoice_Records::settled()->count()  }}</span> </span>
-                                        </a>
-                                    </li>
+                                    {{--<li>--}}
+                                        {{--<a href="{{ URL::to('invoices-pending') }}">--}}
+                                            {{--<span class="title"> Pending Invoices <span class="badge">{{ CRM\Invoice_Records::pending()->count()  }}</span> </span>--}}
+                                        {{--</a>--}}
+                                    {{--</li>--}}
+                                    {{--<li>--}}
+                                        {{--<a href="{{ URL::to('invoices-settled') }}">--}}
+                                            {{--<span class="title"> Settled Invoices <span class="badge">{{ CRM\Invoice_Records::settled()->count()  }}</span> </span>--}}
+                                        {{--</a>--}}
+                                    {{--</li>--}}
                                     <li>
                                         <a href="{{ URL::to('invoices-all') }}">
                                             <span class="title"> All Invoices <span class="badge">{{ CRM\Invoice_Records::all()->count()  }}</span> </span>

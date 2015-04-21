@@ -87,7 +87,7 @@
                     This tool enables you to view of all your tenders.
                 </p>
                 <p class="text-small">
-                    <span style="color:black"><?php echo e(CRM\Tender::overdue()->count()); ?> - Total Tenders</span>
+                    <span style="color:black"><?php echo e(CRM\Tender::all()->count()); ?> - Total Tenders</span>
                 </p>
                 <p class="cl-effect-1">
                     <a href="<?php echo e(url('domains')); ?>">

@@ -40,6 +40,15 @@ get('stop', function(){
     return view('errors.stop')->with('title', 'Permission denied');
 });
 
+get('edit/{invoice_id}', function($invoice_id){
+
+    $items = CRM\Invoice_Records::where('invoice_id', $invoice_id)->get();
+
+    $bag = CRM\Invoice_Records::where('invoice_id', $invoice_id)->first();
+
+    return view('invoices.pdf2', compact('items', 'bag'));
+});
+
 get('pdf/{invoice_id}', function($invoice_id){
 
     $factory = [

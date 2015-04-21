@@ -117,63 +117,63 @@ class Invoice_Records extends Model {
 
     public function scopeNextTwoMonths($query)
     {
-        return $query->where('due_date', '>', Carbon::now()->addMonths(2)->endOfMonth())
+        return $query->whereBetween('due_date', [ Carbon::now()->addMonths(2)->startOfMonth(), Carbon::now()->addMonths(2)->endOfMonth()])
             ->where('status', FALSE)
             ->groupBy('invoice_id')
             ->orderBy('due_date', 'asc');
     }
     public function scopeNextThreeMonths($query)
     {
-        return $query->where('due_date', '>', Carbon::now()->addMonths(3)->endOfMonth())
+        return $query->whereBetween('due_date', [ Carbon::now()->addMonths(3)->startOfMonth(), Carbon::now()->addMonths(3)->endOfMonth()])
             ->where('status', FALSE)
             ->groupBy('invoice_id')
             ->orderBy('due_date', 'asc');
     }
     public function scopeNextFourMonths($query)
     {
-        return $query->where('due_date', '>', Carbon::now()->addMonths(4)->endOfMonth())
+        return $query->whereBetween('due_date', [ Carbon::now()->addMonths(4)->startOfMonth(), Carbon::now()->addMonths(4)->endOfMonth()])
             ->where('status', FALSE)
             ->groupBy('invoice_id')
             ->orderBy('due_date', 'asc');
     }
     public function scopeNextFiveMonths($query)
     {
-        return $query->where('due_date', '>', Carbon::now()->addMonths(5)->endOfMonth())
+        return $query->whereBetween('due_date', [ Carbon::now()->addMonths(5)->startOfMonth(), Carbon::now()->addMonths(5)->endOfMonth()])
             ->where('status', FALSE)
             ->groupBy('invoice_id')
             ->orderBy('due_date', 'asc');
     }
     public function scopeNextSixMonths($query)
     {
-        return $query->where('due_date', '>', Carbon::now()->addMonths(6)->endOfMonth())
+        return $query->whereBetween('due_date', [ Carbon::now()->addMonths(6)->startOfMonth(), Carbon::now()->addMonths(6)->endOfMonth()])
             ->where('status', FALSE)
             ->groupBy('invoice_id')
             ->orderBy('due_date', 'asc');
     }
     public function scopeNextSevenMonths($query)
     {
-        return $query->where('due_date', '>', Carbon::now()->addMonths(7)->endOfMonth())
+        return $query->whereBetween('due_date', [ Carbon::now()->addMonths(7)->startOfMonth(), Carbon::now()->addMonths(7)->endOfMonth()])
             ->where('status', FALSE)
             ->groupBy('invoice_id')
             ->orderBy('due_date', 'asc');
     }
     public function scopeNextEightMonths($query)
     {
-        return $query->where('due_date', '>', Carbon::now()->addMonths(8)->endOfMonth())
+        return $query->whereBetween('due_date', [ Carbon::now()->addMonths(8)->startOfMonth(), Carbon::now()->addMonths(8)->endOfMonth()])
             ->where('status', FALSE)
             ->groupBy('invoice_id')
             ->orderBy('due_date', 'asc');
     }
     public function scopeNextNineMonths($query)
     {
-        return $query->where('due_date', '>', Carbon::now()->addMonths(9)->endOfMonth())
+        return $query->whereBetween('due_date', [ Carbon::now()->addMonths(9)->startOfMonth(), Carbon::now()->addMonths(9)->endOfMonth()])
             ->where('status', FALSE)
             ->groupBy('invoice_id')
             ->orderBy('due_date', 'asc');
     }
     public function scopeNextTenMonths($query)
     {
-        return $query->where('due_date', '>', Carbon::now()->addMonths(10)->endOfMonth())
+        return $query->whereBetween('due_date', [ Carbon::now()->addMonths(10)->startOfMonth(), Carbon::now()->addMonths(10)->endOfMonth()])
             ->where('status', FALSE)
             ->groupBy('invoice_id')
             ->orderBy('due_date', 'asc');
@@ -181,7 +181,7 @@ class Invoice_Records extends Model {
 
     public function scopeNextElevenMonths($query)
     {
-        return $query->where('due_date', '>', Carbon::now()->addMonths(11)->endOfMonth())
+        return $query->whereBetween('due_date', [ Carbon::now()->addMonths(11)->startOfMonth(), Carbon::now()->addMonths(11)->endOfMonth()])
             ->where('status', FALSE)
             ->groupBy('invoice_id')
             ->orderBy('due_date', 'asc');
@@ -200,6 +200,37 @@ class Invoice_Records extends Model {
         return $query->where('status', FALSE)
             ->groupBy('invoice_id')
             ->orderBy('due_date');
+    }
+
+    public function scopeExpectedThisMonth($query)
+    {
+        return $query->whereBetween('due_date', [ Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth() ])
+            ->where('status', FALSE);
+    }
+
+    public function scopeExpectedThisYear($query)
+    {
+        return $query->whereBetween('due_date', [ Carbon::now()->startOfYear(), Carbon::now()->endOfYear() ])
+            ->where('status', FALSE);
+    }
+
+    public function scopeCollectedThisMonth($query)
+    {
+        return $query->whereBetween('due_date', [ Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth() ])
+            ->where('status', TRUE);
+    }
+
+    public function scopeCollectedThisYear($query)
+    {
+        return $query->whereBetween('due_date', [ Carbon::now()->startOfYear(), Carbon::now()->endOfYear() ])
+            ->where('status', TRUE);
+    }
+
+    public static function nextInvoiceID()
+    {
+        $id = Invoice_Records::where('id', '>', 1)->orderBy('id', 'DESC')->first();
+
+        return $id->invoice_id + 1;
     }
 
     /**

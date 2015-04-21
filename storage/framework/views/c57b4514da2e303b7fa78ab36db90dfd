@@ -1,0 +1,48 @@
+
+<div class="form-group <?php echo ($errors->has('name')) ? "has-error" : ""; ?>">
+<?php echo Form::label('client_id','Client Name:'); ?>
+
+    <?php echo e($client->fullnameAndCompany); ?>
+
+</div>
+
+<?php if($btnText == 'Update Service'): ?>
+    <?php echo Form::label('service_id','Service Name:'); ?>
+
+    <?php echo e($client->client_service->name); ?>
+
+    </div>
+<?php else: ?>
+    <div class="form-group <?php echo ($errors->has('service_id')) ? "has-error" : ""; ?>">
+    <?php echo Form::label('service_id','Service Name:'); ?>
+
+    <p>
+    <?php echo Form::select('service_id', [''=>'Select Service'] + $servicelist, array("class"=>"form-control", 'placeholder'=>'name ') ); ?>
+
+    </div>
+<?php endif; ?>
+
+<div class="form-group <?php echo ($errors->has('cost')) ? "has-error" : ""; ?>">
+<?php echo Form::label('cost','Cost:'); ?>
+
+<?php echo Form::text('cost', Input::old('cost'), array("class"=>"form-control", 'placeholder'=>'cost') ); ?>
+
+</div>
+
+<div class="form-group <?php echo ($errors->has('frequency')) ? "has-error" : ""; ?>">
+    <?php echo Form::label('frequency','Frequency:'); ?>
+
+    <p>
+    <?php echo Form::select('frequency', [''=>'Select Frequency'] + $frequency, Input::old('frequency'), array("class"=>"form-control") ); ?>
+
+</div>
+
+<div class="form-group <?php echo ($errors->has('start_date')) ? "has-error" : ""; ?>">
+<?php echo Form::label('start_date','Start Date:'); ?>
+
+<?php echo Form::input('date','start_date', date('Y-m-d'), array("class"=>"form-control", 'placeholder'=>'cost') ); ?>
+
+</div>
+
+<?php echo Form::submit($btnText, array('class'=>'btn btn-primary')); ?>
+

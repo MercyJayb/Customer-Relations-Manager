@@ -7,6 +7,8 @@ use CRM\Invoice_Records;
 use Input;
 use CRM\Client;
 
+use Carbon\Carbon;
+
 use CRM\Http\Requests\Invoice_RecordsRequest;
 
 use Illuminate\Http\Request;
@@ -82,7 +84,7 @@ class Invoice_RecordsController extends Controller {
 
         $title = 'All Invoice Records';
 
-        $subtitle = "view and update invoices records per time";
+        $subtitle = "view all the invoices records per time";
 
         return view('invoices.all', compact(
             'overdueinvoices',
@@ -106,15 +108,35 @@ class Invoice_RecordsController extends Controller {
             'title', 'subtitle'));
     }
 
+    private function recreateInvoice($invoice)
+    {
+        // Create a new invoice from based on the frequency
+        if($invoice->client_service->frequency != 0){
+            //Generate an invoice
+            Invoice_Records::create([
+                'invoice_id' => Invoice_Records::nextInvoiceID(),
+                'client_service_id' => $invoice->client_service_id,
+                'client_id' => $invoice->client_id,
+                'total' => $invoice->total,
+                'tax_details' => 'VAT',
+                'status' => false,
+                'due_date' => Carbon::parse($invoice->due_date)->addDays($invoice->client_service->frequency)
+            ]);
+        }
+
+    }
+
     public function updateStatus(Invoice_Records $invoice)
     {
         if($invoice->status){
             $invoice->status = false;
+            $invoice->save();
         } else {
             $invoice->status = true;
-        }
+            $invoice->save();
 
-        $invoice->save();
+            $this->recreateInvoice($invoice);
+        }
 
         return redirect()->back()->with('success','Invoice Status Updated Successfully');
     }
